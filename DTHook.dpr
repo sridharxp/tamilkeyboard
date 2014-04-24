@@ -9,8 +9,8 @@ the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 Tamil Keyboard is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License version 3
@@ -273,88 +273,7 @@ end;
 
 {The function that actually processes the keystrokes for our hook}
 
-(*
-function KeyBoardProc(Code: integer; wParam: integer; lParam: integer): integer;
-  stdcall;
-var
-  KeyUp: bool;
-begin
-  result := 0;
-  case Code of
-    HC_ACTION:
-      begin
-        {We trap the keystrokes here}
-        {Is this a key up message?}
-        KeyUp := ((lParam and (1 shl 31)) <> 0);
 
-        {If KeyUp then increment the key count}
-        if (KeyUp <> FALSE) then
-        begin
-          Inc(lpHookRec^.TheKeyCount);
-        end;
-        case wParam of
-          {Was the enter key pressed?}
-          VK_RETURN:
-            begin
-              {if KeyUp}
-              if (KeyUp <> FALSE) then
-              begin
-                {Post a bogus message to the window control in our app}
-                PostMessage(lpHookRec^.TheCtrlWinHandle, WM_KEYDOWN, 0, 0);
-                PostMessage(lpHookRec^.TheCtrlWinHandle, WM_KEYUP, 0, 0);
-              end;
-              {If you wanted to swallow the keystroke then return -1, else if you want
-                                                        to allow the keystroke then return 0}
-              result := 0;
-              exit;
-            end; {VK_RETURN}
-          {If the left arrow key is pressed then lets play a joke!}
-          VK_LEFT:
-            begin
-              {if KeyUp}
-              if (KeyUp <> FALSE) then
-              begin
-                {Create a UpArrow keyboard event}
-                keybd_event(VK_RIGHT, 0, 0, 0);
-                keybd_event(VK_RIGHT, 0, KEYEVENTF_KEYUP, 0);
-              end;
-              {Swallow the keystroke}
-              result := -1;
-              exit;
-            end; {VK_LEFT}
-        end; {case wParam}
-        {Allow the keystroke}
-        result := 0;
-      end; {HC_ACTION}
-    HC_NOREMOVE:
-      begin
-        {This is a keystroke message, but the keystroke message has not been removed
-                         from the message queue, since an application has called PeekMessage()
-                        specifying PM_NOREMOVE}
-        result := 0;
-        exit;
-      end;
-  end; {case code}
-  if (Code < 0) then
-    {Call the next hook in the hook chain}
-    result := CallNextHookEx(lpHookRec^.TheHookHandle, Code, wParam, lParam);
-end;
-*)
-
-(*
-procedure StopKeyBoardHook; stdcall;
-begin
-  {If we have a process wide memory variable and the hook has already been set...}
-  if ((lpHookRec <> nil) and (lpHookRec^.TheHookHandle <> 0)) then
-  begin
-    {Remove our hook and clear our hook handle}
-    if (UnHookWindowsHookEx(lpHookRec^.TheHookHandle) <> FALSE) then
-    begin
-      lpHookRec^.TheHookHandle := 0;
-    end;
-  end;
-end;
-*)
 
 procedure DllEntryPoint(dwReason: DWORD);
 begin
@@ -380,21 +299,6 @@ begin
             KeyboardMap.Free;
         end;
       end;
-{
-    Dll_Thread_Attach:
-      if not Assigned(KeyboardMap) then
-      begin
-        KeyboardMap := THashTable.Create(False);
-      end;
-    Dll_Thread_Detach:
-      begin
-        if Assigned(KeyboardMap) then
-          begin
-            KeyboardMap.Empty;
-            KeyboardMap.Free;
-        end;
-      end;
-}
   end;
 end;
 
