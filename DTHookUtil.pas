@@ -10,7 +10,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 Tamil Keyboard is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License version 3
@@ -130,7 +130,6 @@ var
   function ApplySCIM(const Count: integer): boolean;
   procedure ErrorDlg(const Msg: string);
   procedure GenUKey(const vk: integer;  const bUnicode: bool);
-//  procedure GenAKey(const vk: integer;  const bUnicode: bool);
 
 implementation
 uses
@@ -172,14 +171,12 @@ begin
   if lpHookRec^.NextKeboardName = 'Tau Typewriter' then
   begin
     lpHookRec^.SCIMSpan := 4;
-//    GenKey := GenAKey;
     KeyBoardMap.TableSize := 600;
     LoadKbdMap(UTKee, UTFee);
   end;
   if lpHookRec^.NextKeboardName = 'Tau Inscript' then
   begin
     lpHookRec^.SCIMSpan := 4;
-//    GenKey := GenAKey;
     KeyBoardMap.TableSize := 600;
     LoadKbdMap(UIKee, UIFee);
   end;
@@ -401,42 +398,6 @@ begin
   SendInput(1,Input,sizeof(Input));
 end;
 
-(*
-procedure GenAKey(const vk: integer;  const bUnicode: bool);
-var
-  kb: TKEYBDINPUT;
-  Input: TINPUT;
-begin
-  {keydown}
-  lpHookRec^.previous_2_character:= lpHookRec^.previous_1_character;
-  lpHookRec^.previous_1_character:= vk; {update previous characters}
-
-{  ZeroMemory(@kb,sizeof(kb));}
-{  ZeroMemory(@input,sizeof(input));}
-
-  {keydown}
-    kb.wVk:= 0;
-    kb.wScan:= vk; ;
-    kb.dwFlags:= 4;
-    kb.dwExtraInfo := vk;
-    { KEYEVENTF_UNICODE=4}
-  Input.itype:= INPUT_KEYBOARD;
-  Input.ki:= kb;
-
-  SendInput(1, Input,sizeof(Input));
-
-  {keyup}
-    kb.wVk:= 0;
-    kb.wScan:= vk;
-    kb.dwExtraInfo := vk;
-    kb.dwFlags:= KEYEVENTF_KEYUP or 4;
-    {KEYEVENTF_UNICODE=4}
-  Input.itype:= INPUT_KEYBOARD;
-  Input.ki:= kb;
-
-  SendInput(1,Input,sizeof(Input));
-end;
-*)
 
 procedure ErrorDlg(Const Msg: string);
 begin
