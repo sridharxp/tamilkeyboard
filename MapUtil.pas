@@ -16,6 +16,9 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License version 3
  along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 *)
+{
+Debug Tool
+}
 unit MapUtil;
 
 interface

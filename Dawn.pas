@@ -1,4 +1,4 @@
-(* 
+(*
 Copyright (C) 2014, Sridharan S
 
 This file is part of Tamil Keyboard.
@@ -16,6 +16,9 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License version 3
  along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 *)
+{
+Application Main Window
+}
 unit Dawn;
 
 interface
@@ -23,9 +26,6 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls,
     ExtCtrls, HotKeyManager, Menus;
-//    Purchase,
-//  DDSnippets,
-//  USBSerial;
 
 type
   TfrmDawn = class(TForm)
@@ -248,17 +248,6 @@ begin
   DropName;
 end;
 
-{
-procedure TfrmDawn.FormShow(Sender: TObject);
-begin
-  if not UnLocked then
-  begin
-    frmRegister.SetKeySerial('91262A08C21F358E05C4C76DF08DB1E4', 1712211625);
-    frmReGister.CalcModifiers;
-    frmReGister.UpdateUI;
-  end;
-end;
-}
 procedure TfrmDawn.HotKeys1Click(Sender: TObject);
 begin
   MessageDlg('F2 for Activation; AltF2 to DeActivate', mtInformation, [mbOK], 0);
