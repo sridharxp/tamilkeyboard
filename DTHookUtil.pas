@@ -1,4 +1,4 @@
-(* 
+(*
 Copyright (C) 2014, Sridharan S
 
 This file is part of Tamil Keyboard.
@@ -16,6 +16,9 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License version 3
  along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 *)
+{
+Library to hangle Map logic
+}
 unit DTHookUtil;
 
 interface
@@ -28,7 +31,6 @@ uses
   StrUtils,
   BSearch,
   EZDSLHsh;
-
 
 type
   TSCIM_4 = array [0..3] of integer;

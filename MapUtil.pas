@@ -1,4 +1,4 @@
-(* 
+(*
 Copyright (C) 2014, Sridharan S
 
 This file is part of Tamil Keyboard.
@@ -9,8 +9,8 @@ the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 Tamil Keyboard is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License version 3
@@ -225,40 +225,5 @@ begin
  while LeftStr(Result, 1) = '0' do
    Result := copy(Result, 2, Length(Result));
 end;
-{
-procedure TForm1.Button1Click(Sender: TObject);
-var
-  i,j,k: integer;
-  BIFee: array of integer;
-  TxtFile: TextFile;
-begin
-  k := 0;
-  SetLength(BIFee, 984);
-  for i := 0 to High(AIFee) do
-  begin
-    for j := 0 to High(ATFee) do
-    begin
-      if AIFee[i] = ATFee[j] then
-      begin
-        BIFee[i] := BTFee[j];
-        break;
-      end;
-    end;
-  end;
-  AssignFile(TxtFile, 'BIFee.txt');
-  ReWrite(TxtFile);
-  for i:= 0 to High(BIFee)do
-  begin
-  System.Write(TxtFile, '$' + InttoHex(BIFee[i], 4)+', ');
-  k := k + 1;
-  if k = 15 then
-  begin
-  System.Write(TxtFile, #13#10);
-  k := 0;
-  end;
-  end;
-  System.CloseFile(TxtFile);
-  MessageDlg('Done', mtInformation, [mbOK], 0);
-end;
-}
+
 end.

@@ -9,8 +9,8 @@ the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 Tamil Keyboard is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License version 3
@@ -22,10 +22,10 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls,
-    ExtCtrls, HotKeyManager, Menus,
-    Purchase,
-  DDSnippets,
-  USBSerial;
+    ExtCtrls, HotKeyManager, Menus;
+//    Purchase,
+//  DDSnippets,
+//  USBSerial;
 
 type
   TfrmDawn = class(TForm)
@@ -50,7 +50,7 @@ type
     procedure Disable;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Author1Click(Sender: TObject);
-    procedure FormShow(Sender: TObject);
+//    procedure FormShow(Sender: TObject);
     procedure HotKeys1Click(Sender: TObject);
     procedure Debug1Click(Sender: TObject);
     procedure CodePoint1Click(Sender: TObject);
@@ -109,7 +109,6 @@ type
     Keyboard_Enabled: bool;
     NextKeboardName: string;
     SCIMSpan: integer;
-//    IsUnicodeFont: boolean;
   end;
 
   {A pointer type to the hook record}
@@ -151,11 +150,7 @@ begin
       LibLoadSuccess := TRUE;
       {Get a pointer to the hook record}
       lpHookRec := GetHookRecPointer;
-//      if (lpHookRec <> nil) then
-//      begin
         {Fill in our portion of the hook record}
-//        lpHookRec^.TheHookHandle := 0;
-//      end;
       {Were we successfull in getting a ponter to the hook record}
     end
     else
@@ -178,7 +173,6 @@ end;
 procedure TfrmDawn.FormDestroy(Sender: TObject);
 begin
   Disable;
-//   StopKeyBoardHook;
   {Free the hook dll}
   FreeLibrary(hHookLib);
 end;
@@ -188,9 +182,7 @@ begin
       if (lpHookRec <> nil) then
       begin
         {Fill in our portion of the hook record}
-//        lpHookRec^.TheHookHandle := 0;
         {Start the keyboard hook}
-//        StartKeyBoardHook(Self.WindowHandle);
         if cmbFont.ItemIndex = -1 then
         begin
           cmbFont.ItemIndex := 1;
@@ -209,8 +201,6 @@ end;
 procedure TfrmDawn.Disable;
 begin
   {Did we load the dll successfully?}
-//  if (LibLoadSuccess = TRUE) then
-//  begin
     {Did we sucessfully get a pointer to the hook record?}
     if (lpHookRec <> nil) then
     begin
@@ -222,8 +212,6 @@ begin
       end;
     end;
     {Free the hook dll}
-//    FreeLibrary(hHookLib);
-//  end;
 end;
 
 procedure TfrmDawn.HotKeyMgrHotKeyPressed(HotKey: Cardinal;
@@ -244,48 +232,6 @@ begin
   end;
 end;
 
-{
-procedure TfrmDawn.Register1Click(Sender: TObject);
-begin
-  frmRegister.SetKeySerial('91262A08C21F358E05C4C76DF08DB1E4', 1712211625);
-  frmReGister.CalcModifiers;
-  frmReGister.UpdateUI;
-  frmReGister.Show;
-end;
-
-function TfrmDawn.unlock: boolean;
-var
-  str: TStringList;
-  i: integer;
-  drv: char;
-begin
-  Result := False;
-
-  if purchase.PgmStatus then
-  begin
-    UnLocked := True;
-    Result := UnLocked;
-    Exit;
-  end;
-  str := TStringList.Create;
-  try
-  ListDrives(str);
-  for i:= 0 to str.Count-1 do
-  begin
-    drv := str[i][1];
-      if (GetUsbDriveSerial(drv) = '8W6739R2&0') then
-      begin
-        UnLocked := True;
-        Result := UnLocked;
-        Exit;
-    end;
-  end;
-  raise Exception.Create('Incomplete Installation');
-  finally
-  str.Free;
-  end;
-end;
-}
 
 procedure TfrmDawn.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -302,6 +248,7 @@ begin
   DropName;
 end;
 
+{
 procedure TfrmDawn.FormShow(Sender: TObject);
 begin
   if not UnLocked then
@@ -311,7 +258,7 @@ begin
     frmReGister.UpdateUI;
   end;
 end;
-
+}
 procedure TfrmDawn.HotKeys1Click(Sender: TObject);
 begin
   MessageDlg('F2 for Activation; AltF2 to DeActivate', mtInformation, [mbOK], 0);

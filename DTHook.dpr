@@ -1,4 +1,4 @@
-(* 
+(*
 Copyright (C) 2014, Sridharan S
 
 This file is part of Tamil Keyboard.
@@ -9,13 +9,17 @@ the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 Tamil Keyboard is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of 
+but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License version 3
  along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 *)
+{
+Library to get and release Keboard hook
+When changing layouts hook is not released
+}
 library DTHook;
 
 uses
@@ -183,7 +187,6 @@ procedure Stop; stdcall;
 begin
   if not lpHookRec^.Keyboard_Enabled then
     Exit;
-//  UnhookWindowsHookEx(hkb);
   {If we have a process wide memory variable and the hook has already been set...}
   if ((lpHookRec <> nil) and (lpHookRec^.TheHookHandle <> 0)) then
   begin

@@ -18,7 +18,6 @@ object frmDawn: TfrmDawn
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  OnShow = FormShow
   PixelsPerInch = 120
   TextHeight = 18
   object Panel1: TPanel
