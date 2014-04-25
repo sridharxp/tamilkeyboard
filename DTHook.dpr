@@ -45,7 +45,6 @@ begin
   p := PKBDLLHOOKSTRUCT(lParam);
   if wParam=WM_KEYDOWN then
   begin
-//    current_vkCode := p.vkCode;
     lpHookRec^.current_vkCode := p.vkCode;
 
     GetKeyboardState(keyboard_state);
@@ -110,9 +109,6 @@ begin
   end
   else
   (*if wParam == WM_KEYDOWN*)
-  (*This portion is written to prevent the bug in which the shift key was not cleared untill 2 keys are pressed. *)
-  (*It handles key up events and doesnt call Postmessage so that no keystroke is sent to the appliction during key up. *)
-  (*only character_pressed variale is set, which helps us to clear the keys like shiftkey correctly*)
   if wParam=WM_KEYUP then
   begin
     lpHookRec^.current_vkCode:= p.vkCode;
@@ -132,29 +128,22 @@ begin
       lpHookRec^.altkey_pressed := false;
   end;
 
-//  processKeypressEvent;
-
   begin
     result := CallNextHookEx(lpHookRec^.TheHookHandle, nCode, wParam, lParam);
     exit;
   end;
 end;
 
-//function Init_nokeyboard(hInstance: THandle;  enabled: bool;  hwnd: HWND): HHOOK; stdcall;
 procedure Start(const hwnd: HWND) stdcall;
 begin
-//  if (lpHookRec <> nil) then
   if lpHookRec^.Keyboard_Enabled then
     Exit;
   {If we have a process wide memory variable and the hook has not already been set...}
   if ((lpHookRec <> nil) and (lpHookRec^.TheHookHandle = 0)) then
   begin
     {Set the hook and remember our hook handle}
-//    lpHookRec^.TheHookHandle := SetWindowsHookEx(WH_KEYBOARD, @KeyboardHookProc,
-//      hInstance, 0);
     lpHookRec^.TheHookHandle := SetWindowsHookEx(13, @KeyboardHookProc,
       hInstance, 0);
-//    lpHookRec^.KeyboardName := 'Dawn B Typewriter';
     lpHookRec^.Current_vkCode := $0;
     lpHookRec^.Shiftkey_pressed := false;
     lpHookRec^.Caplock_pressed := false;
@@ -165,9 +154,6 @@ begin
     lpHookRec^.Previous_1_Character := 0;
     lpHookRec^.Previous_2_Character := 0;
     lpHookRec^.Character_pressed := 0;
-//    callapp_hInst: HWND; (*Hinstance of the calling exe *)
-(*this stores the status of the keyboard which will be queried by the Qt application at regular intervals*)
-//    lpHookRec^.Capslock_On := 0;
     lpHookRec^.Keychanged := False;
     lpHookRec^.Keyboard_Enabled := true;
 
@@ -191,7 +177,6 @@ end;
 
 procedure Stop; stdcall;
 begin
-//  if (lpHookRec <> nil) then
   if not lpHookRec^.Keyboard_Enabled then
     Exit;
 //  UnhookWindowsHookEx(hkb);
@@ -258,22 +243,13 @@ end;
 
 procedure SelectKeyboard(const hwnd: HWND; Next: pChar); stdcall;
 begin
-//  Stop;
   SuspendKH;
 
-{  SetLength(Temp, Length(Next)+1);
-  strcopy(pchar(Temp), Next);
-}
   lpHookRec^.NextKeboardName := Next;
   GetKbdMap;
 
-//  Start(HWND);
   ResumeKH(HWND);
 end;
-
-{The function that actually processes the keystrokes for our hook}
-
-
 
 procedure DllEntryPoint(dwReason: DWORD);
 begin
@@ -286,7 +262,6 @@ begin
         lpHookRec := nil;
         MapFileMemory(sizeof(lpHookRec^));
         KeyboardMap := THashTable.Create(False);
-//        KeyboardMap.TableSize := 1500;
       end;
     Dll_Process_Detach:
       begin
