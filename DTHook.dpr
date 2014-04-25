@@ -79,8 +79,7 @@ begin
       lpHookRec^.backspace_pressed := true
     else
       lpHookRec^.backspace_pressed := false;
-    (*Do not handle the keystrokes if control key or ALT is pressed - let the system handle them.*)
-
+  { Gives back control to system if Control or Alt key is pressed }
     if lpHookRec^.controlkey_pressed then
     begin
         result:= 0;
@@ -108,7 +107,12 @@ begin
     end;
   end
   else
-  (*if wParam == WM_KEYDOWN*)
+(*if wParam == WM_KEYDOWN*)
+{
+Shift key is handled
+Need only character for Map logic
+Virtual Key Code is not involved
+}
   if wParam=WM_KEYUP then
   begin
     lpHookRec^.current_vkCode:= p.vkCode;
