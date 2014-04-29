@@ -46,7 +46,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure HotKeyMgrHotKeyPressed(HotKey: Cardinal; Index: Word);
-    procedure Enable;
+//    procedure Enable;
+    procedure Select;
     procedure Disable;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Author1Click(Sender: TObject);
@@ -85,6 +86,7 @@ type
   TSelectKeyboard = procedure(hwnd: HWND; Next: pChar); stdcall;
 type
   TSuspend = procedure; stdcall;
+  TResume = procedure; stdcall;
 
   {The record type filled in by the hook dll}
 type
@@ -124,6 +126,7 @@ var
   lpHookRec: PHookRec; {A pointer to the hook record}
   SelectKeyboard: TSelectKeyboard;
   SuspendKeyboardHook: TSuspend;
+  ResumeKeyboardHook: TResume;
 
 procedure TfrmDawn.FormCreate(Sender: TObject);
 begin
@@ -132,6 +135,7 @@ begin
   @StopKeyBoardHook := nil;
   @SelectKeyboard := nil;
   @SuspendKeyboardHook := nil;
+  @ResumeKeyboardHook := nil;
   {Try to load the hook dll}
   hHookLib := LoadLibrary('DTHOOK.DLL');
   {If the hook dll was loaded successfully}
@@ -143,6 +147,7 @@ begin
     @StopKeyBoardHook := GetProcAddress(hHookLib, 'STOPKEYBOARDHOOK');
     @selectKeyboard := GetProcAddress(hHookLib, 'SELECTKEYBOARD');
     @suspendKeyboardHook := GetProcAddress(hHookLib, 'SUSPENDKEYBOARDHOOK');
+    @ResumeKeyboardHook := GetProcAddress(hHookLib, 'RESUMEKEYBOARDHOOK');
     {Did we find all the functions we need?}
     if ((@GetHookRecPointer <> nil) and (@StartKeyBoardHook <> nil) and
       (@StopKeyBoardHook <> nil)) then
@@ -163,6 +168,7 @@ begin
       @StopKeyBoardHook := nil;
       @SelectKeyboard := nil;
       @SuspendKeyboardHook := nil;
+      @ResumeKeyboardHook := nil;
     end;
   end;
   UnLocked := False;
@@ -175,9 +181,17 @@ begin
   Disable;
   {Free the hook dll}
   FreeLibrary(hHookLib);
+      hHookLib := 0;
+      @GetHookRecPointer := nil;
+      @StartKeyBoardHook := nil;
+      @StopKeyBoardHook := nil;
+      @SelectKeyboard := nil;
+      @SuspendKeyboardHook := nil;
+      @ResumeKeyboardHook := nil;
 end;
 
-procedure TfrmDawn.Enable;
+//procedure TfrmDawn.Enable;
+procedure TfrmDawn.Select;
 begin
       if (lpHookRec <> nil) then
       begin
@@ -220,7 +234,8 @@ begin
   if Hotkey = VK_F2 then
     begin
 {      UnLock;}
-      Enable;
+//      Enable;
+      Select;
       Info.Caption := lpHookRec^.KeyboardName;
     end;
 
