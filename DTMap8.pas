@@ -16,6 +16,10 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License version 3
  along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 *)
+{
+Tamil Unicode Standard Font
+Inscript Layout
+}
 unit DTMap8;
 
 interface
