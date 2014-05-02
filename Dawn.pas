@@ -80,13 +80,14 @@ type
   TGetHookRecPointer = function: pointer; stdcall;
 type
   TStartKeyBoardHook = procedure(hwnd: HWND); stdcall;
-type
   TStopKeyBoardHook = procedure; stdcall;
 type
   TSelectKeyboard = procedure(hwnd: HWND; Next: pChar); stdcall;
 type
   TSuspend = procedure; stdcall;
   TResume = procedure; stdcall;
+type
+  TGetStatus = function: integer; stdcall;
 
   {The record type filled in by the hook dll}
 type
@@ -127,6 +128,7 @@ var
   SelectKeyboard: TSelectKeyboard;
   SuspendKeyboardHook: TSuspend;
   ResumeKeyboardHook: TResume;
+  GetStatus: TGetStatus;
 
 procedure TfrmDawn.FormCreate(Sender: TObject);
 begin
@@ -136,6 +138,7 @@ begin
   @SelectKeyboard := nil;
   @SuspendKeyboardHook := nil;
   @ResumeKeyboardHook := nil;
+  @GetStatus := nil;
   {Try to load the hook dll}
   hHookLib := LoadLibrary('DTHOOK.DLL');
   {If the hook dll was loaded successfully}
@@ -148,6 +151,7 @@ begin
     @selectKeyboard := GetProcAddress(hHookLib, 'SELECTKEYBOARD');
     @suspendKeyboardHook := GetProcAddress(hHookLib, 'SUSPENDKEYBOARDHOOK');
     @ResumeKeyboardHook := GetProcAddress(hHookLib, 'RESUMEKEYBOARDHOOK');
+    @GetStatus := GetProcAddress(hHookLib, 'GETSTATUS');
     {Did we find all the functions we need?}
     if ((@GetHookRecPointer <> nil) and (@StartKeyBoardHook <> nil) and
       (@StopKeyBoardHook <> nil)) then
@@ -169,6 +173,7 @@ begin
       @SelectKeyboard := nil;
       @SuspendKeyboardHook := nil;
       @ResumeKeyboardHook := nil;
+      @GetStatus := nil;
     end;
   end;
   UnLocked := False;
@@ -188,6 +193,7 @@ begin
       @SelectKeyboard := nil;
       @SuspendKeyboardHook := nil;
       @ResumeKeyboardHook := nil;
+      @GetStatus := nil;
 end;
 
 //procedure TfrmDawn.Enable;
@@ -242,7 +248,8 @@ begin
   if Hotkey = HotKeyManager.GetHotKey(MOD_ALT, VK_F2) then
   begin
     SuspendKeyboardHook;
-    if not lpHookRec^.Keyboard_Enabled then
+//    if not lpHookRec^.Keyboard_Enabled then
+    if GetStatus = 0 then
       Info.Caption := 'No Keyboard';
   end;
 end;

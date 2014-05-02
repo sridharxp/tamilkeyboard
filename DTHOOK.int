@@ -19,9 +19,37 @@ You should have received a copy of the GNU General Public License version 3
 {
 Interface Declaration for Delphi
 }
+
+{
+Captures the Hook{
+To be called First
+}
 procedure STARTKEYBOARDHOOK(const hwnd: HWND) stdcall;
+
+
+{
+To process KeyStrokes
+}
 procedure RESUMEKEYBOARDHOOK(const hwnd: HWND) stdcall;
-procedure STOPKEYBOARDHOOK stdcall;
+
+{
+To stop processing KeyStrokes
+}
 procedure SUSPENDKEYBOARDHOOK; stdcall;
+
+{
+Internal Structure to stroe metadata
+Now that we have function GETSTATUS may be there is no need to expose this structre
+}
 function GETHOOKRECPOINTER: pointer stdcall;
+
+{
+To Return the Hook
+To be called Last
+}
+procedure STOPKEYBOARDHOOK stdcall;
+
+{
+To Select a new Layout and Use
+}
 procedure SELECTKEYBOARD(const hwnd: HWND; Next: pChar); stdcall;

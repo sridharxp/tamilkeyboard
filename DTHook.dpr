@@ -258,6 +258,13 @@ begin
   ResumeKH(HWND);
 end;
 
+function GetStatus: integer; stdcall;
+begin
+  Result := 0;
+  if lpHookRec^.Keyboard_Enabled then
+    Result := 1;
+end;
+
 procedure DllEntryPoint(dwReason: DWORD);
 begin
   case dwReason of
@@ -292,6 +299,7 @@ exports
   SuspendKH name 'SUSPENDKEYBOARDHOOK',
   GetHookRecPointer name 'GETHOOKRECPOINTER',
   SelectKeyboard name 'SELECTKEYBOARD',
+  GetStatus name 'GETSTATUS',
   DropName name 'GetAuthor';
 
 begin
