@@ -1,0 +1,29 @@
+Technical:
+SCIM Logic
+    An array of  last N ASCII characters ( Not Virtual Key codes) is used to
+    calculate the Tamil character. Zero or one or more characters may have to be
+    deleted first before the character is inserted.
+    Map is searched with  N characters and if found an integer (Unicode Codepoint
+    for Unicode font)  is sent as Keyboard input. If not found the last N-1
+    characters are used to search and so on. If nothing found then the last
+    character is counted as dead key character.
+    N greater than 1 means that some characters are to be deleted.
+    No of characters to delete = N-1 -dead key count
+
+
+User Interface:
+Typewriter
+     Typewriting mode imitates our writing way, not the mechanical typewriter.
+     Mechanical typewriter mode is a historical legacy we need not carry into future.
+     Moreover SCIM does not impose these kind of limitations.
+IISC Typewriter:
+    Follows Gist Model
+Inscript
+    Follows Inscript Layout
+
+Font:
+IISC - Legacy Gist Font (Pre Tamil 99 Standard)
+Tam - Tanil 99 Ansi Standard
+Tau - Tamil Unicode Standard Font
+
+
