@@ -27,6 +27,9 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls;
 
+const
+BASE16 = 16;
+
 type
   TfrmCPCalc = class(TForm)
     Button1: TButton;
@@ -56,6 +59,8 @@ type
   public
     { Public declarations }
   end;
+
+function Int2Hex(const Dec: integer): string;
 
 var
   frmCPCalc: TfrmCPCalc;
@@ -111,7 +116,41 @@ begin
          +  (( ord( edtUtf8.Text[2] ) and $3F ) shl 12 )
          +  (( ord( edtUtf8.Text[3] ) and $3F ) shl 6 )
          + ( ord( edtUtf8.Text[3] ) and $3F );
-  edtCP.Text := InttoHex(CodePoint,4);
+//  edtCP.Text := InttoHex(CodePoint,4);
+  edtCP.Text := Int2Hex(CodePoint);
+end;
+
+function Int2Hex(const Dec: integer): string;
+var
+  HexStr : string;
+  R : Integer;
+  Q : Integer;
+begin
+  Q := Dec;
+  while Q > 0 do
+  begin
+  R := Q mod BASE16;
+    case R of
+      0: HexStr := '0' + HexStr;
+       1: HexStr := '1' + HexStr;
+       2: HexStr := '2' + HexStr;
+       3: HexStr := '3' + HexStr;
+       4: HexStr := '4' + HexStr;
+       5: HexStr := '5' + HexStr;
+       6: HexStr := '6' + HexStr;
+       7: HexStr := '7' + HexStr;
+       8: HexStr := '8' + HexStr;
+       9: HexStr := '9' + HexStr;
+      10: HexStr := 'A' + HexStr;
+      11: HexStr := 'B' + HexStr;
+      12: HexStr := 'C' + HexStr;
+      13: HexStr := 'D' + HexStr;
+      14: HexStr := 'E' + HexStr;
+      15: HexStr := 'F' + HexStr;
+    end;
+    Q := Q div BASE16
+  end;
+  Result := HexStr;
 end;
 
 procedure TfrmCPCalc.BbtnCp2UtfClick(Sender: TObject);

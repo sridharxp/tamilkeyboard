@@ -1,5 +1,8 @@
 Technical:
-SCIM Logic
+Keys
+    If any Visible key is not handled it is not passed back and so in effect
+    a dead key.
+Keyboard Logic
     An array of  last N ASCII characters ( Not Virtual Key codes) is used to
     calculate the Tamil character. Zero or one or more characters may have to be
     deleted first before the character is inserted.
