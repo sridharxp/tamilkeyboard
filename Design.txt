@@ -16,9 +16,7 @@ Keyboard Logic
 
 User Interface:
 Typewriter
-     Typewriting mode imitates our writing way, not the mechanical typewriter.
-     Mechanical typewriter mode is a historical legacy we need not carry into future.
-     Moreover SCIM does not impose these kind of limitations.
+     Typewriting mode imitates our writing way, not the mechanical typewriter. Mechanical typewriter mode is a historical legacy we need not carry into future. Moreover SCIM does not impose these kind of limitations as ligature can be easily implemented.
 IISC Typewriter:
     Follows Gist Model
 Inscript
@@ -26,7 +24,7 @@ Inscript
 
 Font:
 IISC - Legacy Gist Font (Pre Tamil 99 Standard)
-Tam - Tanil 99 Ansi Standard
+Tam - Tanil Ansi Standard Font
 Tau - Tamil Unicode Standard Font
-
+Vanavil - Vanavil Font
 
