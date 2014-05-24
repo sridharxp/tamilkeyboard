@@ -67,7 +67,7 @@ var
 implementation
 
 uses
-    DTMap1, DTMap2, DTMap3, DTMap4, DTMap5, DTMap7, DTMap8;
+    DTMap1, DTMap2, DTMap3, DTMap4, DTMap5, DTMap7, DTMap8, DTMap9, DTMap10;
 {$R *.dfm}
 
 procedure TfrmMaputil.Button1Click(Sender: TObject);
@@ -128,6 +128,14 @@ begin
     SetLength(F, Length(UTFee));
     CopyMemory(@F[0], @UTFee[0], Length(UTFee) * SizeOf(integer));
   end;
+  if skee = 'STKee' then
+  begin
+    asize := 1;
+    SetLength(K, Length(STKee));
+    CopyMemory(@K[0], @STKee[0], Length(STKee) * SizeOf(string));
+    SetLength(F, Length(STFee));
+    CopyMemory(@F[0], @STFee[0], Length(STFee) * SizeOf(integer));
+  end;
   if skee = 'AIKee' then
   begin
     asize := 3;
@@ -135,6 +143,14 @@ begin
     CopyMemory(@K[0], @AIKee[0], Length(AIKee) * SizeOf(string));
     SetLength(F, Length(AIFee));
     CopyMemory(@F[0], @AIFee[0], Length(AIFee) * SizeOf(integer));
+  end;
+  if skee = 'SIKee' then
+  begin
+    asize := 3;
+    SetLength(K, Length(SIKee));
+    CopyMemory(@K[0], @SIKee[0], Length(SIKee) * SizeOf(string));
+    SetLength(F, Length(SIFee));
+    CopyMemory(@F[0], @SIFee[0], Length(SIFee) * SizeOf(integer));
   end;
   if skee = 'BIKee' then
   begin

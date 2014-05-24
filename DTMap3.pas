@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License version 3
 *)
 {
 Tamil Ansi Standard Font
-Typewriter Layout
+Inscript Layout
 }
 unit DTMap3;
 

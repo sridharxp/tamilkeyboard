@@ -17,10 +17,10 @@ You should have received a copy of the GNU General Public License version 3
  along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 *)
 {
-Legacy Gist Font (Pre Tamil 99 Standard)
+STmzh Font
 Inscript Layout
 }
-unit DTMap4;
+unit DTMap10;
 
 interface
 
@@ -29,7 +29,7 @@ uses
 
 const
 // Inscript
-BIkee: array [0..327] of ansistring =(
+SIkee: array [0..327] of ansistring =(
 'D', 'E', 'F', 'R', 'G', 'T', 'Z', 'S', 'W', '~', 'A', 'Q', '_',
 'k',       'U',     ';',       ']',     '''',     'C',     'l',       'v',     'h',       'c',
 '/',       'j',       'n',    'b',       'B',      'N',     'J',       'V',     'm',       ',',
@@ -71,7 +71,7 @@ BIkee: array [0..327] of ansistring =(
 '?',      '(',      ')',      '=',      '+',     '-'
 );
 
-BIFee: array [0..983] of integer =(
+SIFee: array [0..983] of integer =(
 $41, 0, 0, $42, 0, 0, $43, 0, 0, $44, 0, 0, $45, 0, 0,
 $46, 0, 0, $47, 0, 0, $48, 0, 0, $49, 0, 0, $4A, 0, 0,
 $4B, 0, 0, $4A, $5B, 0, $40, 0, 0, $4C, 0, 0, $4D, 0, 0,

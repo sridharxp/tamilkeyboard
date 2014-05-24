@@ -1,4 +1,4 @@
-(* 
+(*
 Copyright (C) 2014, Sridharan S
 
 This file is part of Tamil Keyboard.
@@ -17,11 +17,11 @@ You should have received a copy of the GNU General Public License version 3
  along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 *)
 {
-Gist Font
+STmzh Font
 Typewriter Layout
 Follows Gist Model
 }
-unit DTMap2;
+unit DTMap9;
 
 interface
 
@@ -30,7 +30,7 @@ uses
 
 const
 // TAU
-ATkee: array [0..202] of ansistring =(
+STkee: array [0..202] of ansistring =(
 'a;',     's;',     'd;',     'f;',     'g;',     'h;',     'H;',     'j;',     'k;',     'l;',     'w;',     'e;',
 'r;',     't;',     'y;',     'z;',     '!;',     '$;',     'Z;',     '];',     'B;',     ''';',     '";',     'ap',
 'sp',     'dp',     'fp',     'gp',     'hp',     'Hp',     'jp',     'kp',     'lp',     'wp',     'ep',
@@ -53,7 +53,7 @@ ATkee: array [0..202] of ansistring =(
 '"}'
 );
 
-ATFee: array [0..202] of integer =(
+STFee: array [0..202] of integer =(
   $152, $153,   $A1, $201A,  $160,  $2DC, $203A, $2C6,  $2039, $2020,
   $178,$2030, $201E,  $161, $2122,  $2021,  $76,  $78,    $77,   $79,
   $7A,  $192, $2026,   $4A,   $4F,    $51,  $41,  $48,    $4B,   $4E,
