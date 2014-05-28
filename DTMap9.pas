@@ -9,7 +9,7 @@ the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 Tamil Keyboard is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of 
+but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
@@ -59,23 +59,26 @@ STFee: array [0..202] of integer =(
   $F0D5, $F0BA, $F0DE,
   $F06C, $F0B9, $F04D, $F0FE, $F0B8,  $F0F6,$F061,
   $F05D, $F074, $F0BD, $F0A4, $F057,  $F045,$F073,$F06F,  $F0E8, $F04C,
-  $F0F7, $F0B4, $F04E, $F048,   $F081,    $F081,
+  $F0F7, $F0B4, $F04E, $F048, $F0F4,  $F051,
   $F058, $F043, $F0CC, $F0FF,
   $F0AC, $F05A, $F0D1, $F079, $F02A,  $F0CF,$F053,$F0C0,  $F0E6, $F054,
-  $F0DC, $F0A7, $F0A2, $F0FD, $F055,  $F0EA,$F0C8,$F0F4,$F051,
-  $BB,
-  $C0,   $C2,   $B0,   $B9,   $BC,    $BF,  $B6,  $BA,    $B4,   $C1,
-  $B8,   $B2,   $BE,   $BD,   $B5,    $B1,  $B3,  $CE,    $D9,   $DB,
-  $C3,   $CE,   $CF,   $D8,   $C9,    $CD,  $C7,  $DA,    $CB,   $C5,
-  $D7,   $D6,   $C8,   $C4,   $C6,    $F2,  $FD,  $F7,    $C0,   $F9,
-  $C2,   $E8,   $B0,   $F0,   $BF,    $A3,  $F6,  $EE,    $B6,   $F1,
-  $BA,   $EC,   $B4,   $E9,   $EB,    $F8,  $C1,  $EF,    $B8,   $EA,
-  $B2,   $F5,   $BE,   $F4,   $BD,    $F3,  $BC,  $AC,    $E4,   $AE,
-  $AF,                 $ED,   $E5,    $E6,  $E0,  $E1,    $E2,   $E3,
-  $AA,   $AB,   $C5,   $DC,   $DD,    $DE,  $DF,   46,     44,   $E7,
-  $FC,   $FF,   $A7,   $A8,   $A5,    $A4,  $A6,  $FE,     $FB,  $B5,
-  $FA,    48,    49,    50,    51,     52,   53,   54,     55,    56,
-  57,     63,    40,    41,    61,     43,   45,
+  $F0DC, $F0A7, $F0A2, $F0FD, $F055,  $F0EA,$F0C8,$F0F4,  $F051,
+
+  $F0A5, $F0D3, $F0D0, $F07A,  $F041, $F0F2, $F0BF, $F06D, $F078, $F07C,
+  $F0AE, $F04F, $F0B7, $F0A1,  $F04B, $F062, $F0F4, $F051,   $CE,   $D9,
+  $DB,   $C3,   $CE,   $CF,   $D8,   $C9,    $CD,  $C7,  $DA,    $CB,   $C5,
+  $D7,   $D6,   $C8,   $C4,   $C6,
+  $F042,  $F0C7,  $F065,    $F0D3,   $F0AA,
+  $F0D0,   $F0EF,   $F07A,   $F0C3,   $F0BF,    $F056,  $F077,  $F03E,    $F06D,   $F05C,
+  $F078,   $F0A6,   $F07C,   $F0F4,   $F051,    $F0C5,  $F0AE,  $F0E5,    $F04F,   $F0C4,
+  $F0B7,   $F06B,   $F0A1,   $F0E9,   $F04B,    $F0AB,  $F0F2,  $AC,    $F06E,   $AE,
+  $AF,                 $F0F0,   $F0CE,    $F07B,  $F063,  $F0BB,    $F0A8,   $F0B0,
+  $AA,   $AB,   $C5,
+  $F0B6,   $F067,    $F0D6,  $F07E,   46,     44,   $F0E0,
+  $F0DB,   $F070,   $A7,   $A8,   $A5,    $A4,  $A6,  $F0AD,     $FB,  $F062,
+  $F076,
+  $F030,    $F031,    $F032,    $F033,     $F034,   $F035,   $F036,     $F037,    $F038,
+  $F039,     63,    40,    41,    61,     43,   45,
   $CE,    $D9,   $DB,
   $C3,   $CE,   $CF,   $D8,   $C9,    $CD,  $C7,  $DA,    $CB,   $C5,
   $D7,   $D6,   $C8,   $C4,   $C6

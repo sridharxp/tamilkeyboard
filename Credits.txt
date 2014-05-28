@@ -1,12 +1,12 @@
-Software is developed in Delphi.
+This software is developed in Delphi.
 
 https://code.google.com/p/ekalappai/ was a source of inspiration to this project
-For quick development of layouts for Unicode fonts.
+ekappai is good for quick development of layouts for Unicode fonts.
 Author: Muguntharaj Subramanian
 
 http://www.boyet.com/code/ezdsl304.zip has hash algorithm used in this project and more.
-tomes of delphi: algorithms and data structures is a poular Delphi book.
+tomes of delphi algorithms and data structures is a poular Delphi book.
 
-http://subsimple.com/delphi.php has got Hot Key Manager Used in this project.
+http://subsimple.com/delphi.php has Hot Key Manager used in this project.
 Author: Troels Jakobsen
 

@@ -171,7 +171,9 @@ object frmMaputil: TfrmMaputil
         'UTKee'
         'BIKee'
         'AIKee'
-        'UIKee')
+        'UIKee'
+        'STKee'
+        'SIKee')
     end
   end
 end
