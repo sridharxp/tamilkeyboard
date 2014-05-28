@@ -328,8 +328,8 @@ begin
     while i < prev_ucchar_length
     do
     begin
-//      Genkey(8, False);
-      Genkey(8, True);
+{ Coreldraw, Wordpad etc do not like unicode backspace }
+      Genkey(8, False);
       inc(i);
     end;
   end;

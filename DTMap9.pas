@@ -55,7 +55,7 @@ STkee: array [0..202] of ansistring =(
 
 STFee: array [0..202] of integer =(
   $F046, $F05E, $F05B, $F0C2, $F0A9,  $F0EC, $F0B5, $F0DD,  $F044, $F0E2,
-  $F075, $F0E5, $F0DF, $F0CB, $F05F,  $F0F5, $F0FC, $F0EB,  $F069, $F0E3,
+  $F075, $F0CD, $F0DF, $F0CB, $F05F,  $F0F5, $F0FC, $F0EB,  $F069, $F0E3,
   $F0D5, $F0BA, $F0DE,
   $F06C, $F0B9, $F04D, $F0FE, $F0B8,  $F0F6,$F061,
   $F05D, $F074, $F0BD, $F0A4, $F057,  $F045,$F073,$F06F,  $F0E8, $F04C,
