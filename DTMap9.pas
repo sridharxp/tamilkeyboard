@@ -63,25 +63,25 @@ STFee: array [0..202] of integer =(
   $F058, $F043, $F0CC, $F0FF,
   $F0AC, $F05A, $F0D1, $F079, $F02A,  $F0CF,$F053,$F0C0,  $F0E6, $F054,
   $F0DC, $F0A7, $F0A2, $F0FD, $F055,  $F0EA,$F0C8,$F0F4,  $F051,
-
-  $F0A5, $F0D3, $F0D0, $F07A,  $F041, $F0F2, $F0BF, $F06D, $F078, $F07C,
-  $F0AE, $F04F, $F0B7, $F0A1,  $F04B, $F062, $F0F4, $F051,   $CE,   $D9,
-  $DB,   $C3,   $CE,   $CF,   $D8,   $C9,    $CD,  $C7,  $DA,    $CB,   $C5,
-  $D7,   $D6,   $C8,   $C4,   $C6,
+  $F0A5, $F0D3, $F0D0, $F07A, $F041, $F0F2, $F0BF, $F06D, $F078, $F07C,
+  $F0AE, $F04F, $F0B7, $F0A1, $F04B, $F062, $F0F4, $F051,
+  $F052, $F06A, $F0FB, $F0ED, $F0AF, $F0D4,   $F0F1,   $F023,    $F04A,  $F0F9,
+  $F047, $F0B1, $F0F3,$F0C6, $F0D9,   $F049,   $F0F4, $F051,
   $F042,  $F0C7,  $F065,    $F0D3,   $F0AA,
   $F0D0,   $F0EF,   $F07A,   $F0C3,   $F0BF,    $F056,  $F077,  $F03E,    $F06D,   $F05C,
   $F078,   $F0A6,   $F07C,   $F0F4,   $F051,    $F0C5,  $F0AE,  $F0E5,    $F04F,   $F0C4,
-  $F0B7,   $F06B,   $F0A1,   $F0E9,   $F04B,    $F0AB,  $F0F2,  $AC,    $F06E,   $AE,
+  $F0B7,   $F06B,   $F0A1,   $F0E9,   $F04B,    $F0AB,  $F0F2,  $F0E7,    $F06E,   $AE,
   $AF,                 $F0F0,   $F0CE,    $F07B,  $F063,  $F0BB,    $F0A8,   $F0B0,
-  $AA,   $AB,   $C5,
-  $F0B6,   $F067,    $F0D6,  $F07E,   46,     44,   $F0E0,
-  $F0DB,   $F070,   $A7,   $A8,   $A5,    $A4,  $A6,  $F0AD,     $FB,  $F062,
+  $F0D8,   $F0BC,   $F0F3,
+  $F0B6,   $F067,    $F0D6,  $F07E,   $2E,     $2C,   $F0E0,
+  $F0DB,   $F070,   $F09E,   $F0A0,   $A5,    $F081,  $F08D,  $F0B3,     $F0AD,  $F062,
   $F076,
   $F030,    $F031,    $F032,    $F033,     $F034,   $F035,   $F036,     $F037,    $F038,
-  $F039,     63,    40,    41,    61,     43,   45,
-  $CE,    $D9,   $DB,
-  $C3,   $CE,   $CF,   $D8,   $C9,    $CD,  $C7,  $DA,    $CB,   $C5,
-  $D7,   $D6,   $C8,   $C4,   $C6
+  $F039,
+  $3F,    $28,    $29,    $3D,  $2B,   $2D,
+  $F052,    $F06A,   $F0FB,
+  $F0ED,   $F0AF,   $F0D4,   $F0F1,   $F023,    $F04A,  $F0F9,  $F047,    $F0B1,   $C5,
+  $F0C6,   $F0D9,   $F049,   $F0F4, $F051
 );
 
 implementation
