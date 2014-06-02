@@ -1,4 +1,4 @@
-(*
+{*
 Copyright (C) 2014, Sridharan S
 
 This file is part of Tamil Keyboard.
@@ -20,6 +20,7 @@ You should have received a copy of the GNU General Public License version 3
 STmzh Font
 Typewriter Layout
 Follows Gist Model
+Maps to Glyph Index
 }
 unit DTMap9;
 
@@ -54,34 +55,34 @@ STkee: array [0..202] of ansistring =(
 );
 
 STFee: array [0..202] of integer =(
-  $F046, $F05E, $F05B, $F0C2, $F0A9,  $F0EC, $F0B5, $F0DD,  $F044, $F0E2,
-  $F075, $F0CD, $F0DF, $F0CB, $F05F,  $F0F5, $F0FC, $F0EB,  $F069, $F0E3,
-  $F0D5, $F0BA, $F0DE,
-  $F06C, $F0B9, $F04D, $F0FE, $F0B8,  $F0F6,$F061,
-  $F05D, $F074, $F0BD, $F0A4, $F057,  $F045,$F073,$F06F,  $F0E8, $F04C,
-  $F0F7, $F0B4, $F04E, $F048, $F0F4,  $F051,
-  $F058, $F043, $F0CC, $F0FF,
-  $F0AC, $F05A, $F0D1, $F079, $F02A,  $F0CF,$F053,$F0C0,  $F0E6, $F054,
-  $F0DC, $F0A7, $F0A2, $F0FD, $F055,  $F0EA,$F0C8,$F0F4,  $F051,
-  $F0A5, $F0D3, $F0D0, $F07A, $F041, $F0F2, $F0BF, $F06D, $F078, $F07C,
-  $F0AE, $F04F, $F0B7, $F0A1, $F04B, $F062, $F0F4, $F051,
-  $F052, $F06A, $F0FB, $F0ED, $F0AF, $F0D4,   $F0F1,   $F023,    $F04A,  $F0F9,
-  $F047, $F0B1, $F0F3,$F0C6, $F0D9,   $F049,   $F0F4, $F051,
-  $F042,  $F0C7,  $F065,    $F0D3,   $F0AA,
-  $F0D0,   $F0EF,   $F07A,   $F0C3,   $F0BF,    $F056,  $F077,  $F03E,    $F06D,   $F05C,
-  $F078,   $F0A6,   $F07C,   $F0F4,   $F051,    $F0C5,  $F0AE,  $F0E5,    $F04F,   $F0C4,
-  $F0B7,   $F06B,   $F0A1,   $F0E9,   $F04B,    $F0AB,  $F0F2,  $F0E7,    $F06E,   $AE,
-  $AF,                 $F0F0,   $F0CE,    $F07B,  $F063,  $F0BB,    $F0A8,   $F0B0,
-  $F0D8,   $F0BC,   $F0F3,
-  $F0B6,   $F067,    $F0D6,  $F07E,   $2E,     $2C,   $F0E0,
-  $F0DB,   $F070,   $F09E,   $F0A0,   $A5,    $F081,  $F08D,  $F0B3,     $F0AD,  $F062,
-  $F076,
-  $F030,    $F031,    $F032,    $F033,     $F034,   $F035,   $F036,     $F037,    $F038,
-  $F039,
+  $46, $5E, $5B, $C2, $A9,  $EC, $B5, $DD,  $44, $E2,
+  $75, $CD, $DF, $CB, $5F,  $F5, $FC, $EB,  $69, $E3,
+  $D5, $BA, $DE,
+  $6C, $B9, $4D, $FE, $B8,  $F6,$61,
+  $5D, $74, $BD, $A4, $57,  $45,$73,$6F,  $E8, $4C,
+  $F7, $B4, $4E, $48, $F4,  $51,
+  $58, $43, $CC, $FF,
+  $AC, $5A, $D1, $79, $2A,  $CF,$53,$C0,  $E6, $54,
+  $DC, $A7, $A2, $FD, $55,  $EA,$C8,$F4,  $51,
+  $A5, $D3, $D0, $7A, $41, $F2, $BF, $6D, $78, $7C,
+  $AE, $4F, $B7, $A1, $4B, $62, $F4, $51,
+  $52, $6A, $FB, $ED, $AF, $D4,   $F1,   $23,    $4A,  $F9,
+  $47, $B1, $F3,$C6, $D9,   $49,   $F4, $51,
+  $42,  $C7,  $65,    $D3,   $AA,
+  $D0,   $EF,   $7A,   $C3,   $BF,    $56,  $77,  $3E,    $6D,   $5C,
+  $78,   $A6,   $7C,   $F4,   $51,    $C5,  $AE,  $E5,    $4F,   $C4,
+  $B7,   $6B,   $A1,   $E9,   $4B,    $AB,  $F2,  $E7,    $6E,   $AE,
+  $AF,                 $F0,   $CE,    $7B,  $63,  $BB,    $A8,   $B0,
+  $D8,   $BC,   $F3,
+  $B6,   $67,    $D6,  $7E,   $2E,     $2C,   $E0,
+  $DB,   $70,   $9E,   $A0,   $A5,    $81,  $8D,  $B3,     $AD,  $62,
+  $76,
+  $30,    $31,    $32,    $33,     $34,   $35,   $36,     $37,    $38,
+  $39,
   $3F,    $28,    $29,    $3D,  $2B,   $2D,
-  $F052,    $F06A,   $F0FB,
-  $F0ED,   $F0AF,   $F0D4,   $F0F1,   $F023,    $F04A,  $F0F9,  $F047,    $F0B1,   $C5,
-  $F0C6,   $F0D9,   $F049,   $F0F4, $F051
+  $52,    $6A,   $FB,
+  $ED,   $AF,   $D4,   $F1,   $23,    $4A,  $F9,  $47,    $B1,   $C5,
+  $C6,   $D9,   $49,   $F4, $51
 );
 
 implementation
