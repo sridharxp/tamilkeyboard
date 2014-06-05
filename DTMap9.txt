@@ -31,7 +31,7 @@ uses
 
 const
 // TAU
-STkee: array [0..205] of ansistring =(
+STkee: array [0..217] of ansistring =(
 'a;',     's;',     'd;',     'f;',     'g;',     'h;',     'H;',     'j;',     'k;',     'l;',     'w;',     'e;',
 'r;',     't;',     'y;',     'z;',     '!;',     '$;',     'Z;',     '];',     'B;',     ''';',     '";',     'ap',
 'sp',     'dp',     'fp',     'gp',     'hp',     'Hp',     'jp',     'kp',     'lp',     'wp',     'ep',
@@ -52,10 +52,11 @@ STkee: array [0..205] of ansistring =(
 'a}',     's}',     'd}',     'f}',     'g}',
 'h}',     'H}',     'j}',     'k}',     'l}',     'w}',     'e}',     'r}',     't}',     'y}',     'z}',     '''}',
 '"}',
-'Z[',     'Z{',     'Z}'
+'Z[',     'Z{',     'Z}',     '![',     '!{',     '!}',      '][',     ']{',     ']}',    '$[',     '${',     '$}',
+'B[',     'B{',     'B}'
 );
 
-STFee: array [0..205] of integer =(
+STFee: array [0..217] of integer =(
   $F046, $F05E, $F05B, $F0C2, $F0A9,  $F0EC, $F0B5, $F0DD,  $F044, $F0E2,
   $F075, $F0CD, $F0DF, $F0CB, $F05F,  $F0F5, $F0FC, $F0EB,  $F069, $F0E3,
   $F0D5, $F0BA, $F0DE,
@@ -84,7 +85,8 @@ STFee: array [0..205] of integer =(
   $F052,    $F06A,   $F0FB,
   $F0ED,   $F0AF,   $F0D4,   $F0F1,   $F023,    $F04A,  $F0F9,  $F047,    $F0B1,   $F0F3,
   $F0C6,   $F0D9,   $F049,   $F0F4, $F051,
-  $F0D7,   $F0A3,   $F0A3
+  $F0D7,   $F0A3,   $F0A3,  $F071,  $F060, $F060,    $F0F8,  $F0DA,    $F0DA
+  $F068,   $F0C9,   $F0C9,  $59,  $66,     $66
 );
 
 implementation
