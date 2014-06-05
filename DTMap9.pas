@@ -31,7 +31,7 @@ uses
 
 const
 // TAU
-STkee: array [0..202] of ansistring =(
+STkee: array [0..205] of ansistring =(
 'a;',     's;',     'd;',     'f;',     'g;',     'h;',     'H;',     'j;',     'k;',     'l;',     'w;',     'e;',
 'r;',     't;',     'y;',     'z;',     '!;',     '$;',     'Z;',     '];',     'B;',     ''';',     '";',     'ap',
 'sp',     'dp',     'fp',     'gp',     'hp',     'Hp',     'jp',     'kp',     'lp',     'wp',     'ep',
@@ -51,10 +51,11 @@ STkee: array [0..202] of ansistring =(
 '?',      '(',      ')',      '=',      '+',      '-',
 'a}',     's}',     'd}',     'f}',     'g}',
 'h}',     'H}',     'j}',     'k}',     'l}',     'w}',     'e}',     'r}',     't}',     'y}',     'z}',     '''}',
-'"}'
+'"}',
+'Z[',     'Z{',     'Z}'
 );
 
-STFee: array [0..202] of integer =(
+STFee: array [0..205] of integer =(
   $46, $5E, $5B, $C2, $A9,  $EC, $B5, $DD,  $44, $E2,
   $75, $CD, $DF, $CB, $5F,  $F5, $FC, $EB,  $69, $E3,
   $D5, $BA, $DE,
@@ -81,8 +82,9 @@ STFee: array [0..202] of integer =(
   $39,
   $3F,    $28,    $29,    $3D,  $2B,   $2D,
   $52,    $6A,   $FB,
-  $ED,   $AF,   $D4,   $F1,   $23,    $4A,  $F9,  $47,    $B1,   $C5,
-  $C6,   $D9,   $49,   $F4, $51
+  $ED,   $AF,   $D4,   $F1,   $23,    $4A,  $F9,  $47,    $B1,   $F3,
+  $C6,   $D9,   $49,   $F4, $51,
+  $D7,   $A3,   $A3
 );
 
 implementation
