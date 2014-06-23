@@ -78,7 +78,7 @@ type
   PKBDLLHOOKSTRUCT = ^tagKBDLLHOOKSTRUCT;
   LPKBDLLHOOKSTRUCT = ^tagKBDLLHOOKSTRUCT;
 
-  TGenKey = procedure(const vk: integer;  const bUnicode: bool);
+//  TGenKey = procedure(const vk: integer;  const bUnicode: bool);
 
 Const
   SCIMCycle = 5;
@@ -123,7 +123,7 @@ var
   Refstr: array [1..SCIMCycle] of AnsiChar = '     ';
   DeadKeyLength: integer = 0;
   prev_ucchar_length: integer = 0;
-  GenKey: TGenKey;
+//  GenKey: TGenKey;
 
   procedure GetKbdMap;
   procedure LoadKbdMap(const Kee: array of Ansistring; fee: array of integer);
@@ -131,7 +131,8 @@ var
   procedure GenLangCode(const iChars: array of integer);
   function ApplySCIM(const Count: integer): boolean;
   procedure ErrorDlg(const Msg: string);
-  procedure GenUKey(const vk: integer;  const bUnicode: bool);
+//  procedure GenUKey(const vk: integer;  const bUnicode: bool);
+  procedure GenKey(const vk: integer;  const bUnicode: bool);
 
 implementation
 uses
@@ -144,7 +145,7 @@ begin
     lpHookRec^.KeyboardName := lpHookRec^.NextKeboardName;
     KeyBoardMap.Empty;
   end;
-  GenKey := GenUkey;
+//  GenKey := GenUkey;
   if lpHookRec^.NextKeboardName = 'ISCII Typewriter' then
   begin
     lpHookRec^.SCIMSpan := 1;
@@ -348,7 +349,8 @@ begin
   end;
 end;
 
-procedure GenUKey(const vk: integer;  const bUnicode: bool);
+//procedure GenUKey(const vk: integer;  const bUnicode: bool);
+procedure GenKey(const vk: integer;  const bUnicode: bool);
 var
   kb: TKEYBDINPUT;
   Input: TINPUT;

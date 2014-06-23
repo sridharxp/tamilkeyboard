@@ -13,8 +13,8 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License version 3
- along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License version 3 
+along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 *)
 {
 Debug Tool
@@ -50,16 +50,12 @@ type
     edt34: TEdit;
     cmbKee: TComboBox;
     procedure Button1Click(Sender: TObject);
-//    procedure BIFeeFromAIFee1Click(Sender: TObject);
-    //procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
     function srh(i: integer): string;
   end;
-
-//Tsrh = function(i: integer): string;
 
 var
   frmMaputil: TfrmMaputil;
