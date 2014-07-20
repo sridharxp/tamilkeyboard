@@ -28,23 +28,23 @@ procedure STARTKEYBOARDHOOK(const hwnd: HWND) stdcall;
 
 
 {
-To process KeyStrokes
+To resume processing KeyStrokes
 }
 procedure RESUMEKEYBOARDHOOK(const hwnd: HWND) stdcall;
 
 {
-To stop processing KeyStrokes
+To suspend processing KeyStrokes
 }
 procedure SUSPENDKEYBOARDHOOK; stdcall;
 
 {
-Internal Structure to stroe metadata
-Now that we have function GETSTATUS may be there is no need to expose this structre
+Internal Structure to store metadata
+function GETSTATUS returns Enabled or Ddisabled status
 }
 function GETHOOKRECPOINTER: pointer stdcall;
 
 {
-To Return the Hook
+To return the Hook
 To be called Last
 }
 procedure STOPKEYBOARDHOOK stdcall;

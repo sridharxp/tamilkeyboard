@@ -79,13 +79,13 @@ uses MapUtil, CodePoint;
 type
   TGetHookRecPointer = function: pointer; stdcall;
 type
-  TStartKeyBoardHook = procedure(hwnd: HWND); stdcall;
+//  TStartKeyBoardHook = procedure(hwnd: HWND); stdcall;
   TStopKeyBoardHook = procedure; stdcall;
 type
   TSelectKeyboard = procedure(hwnd: HWND; Next: pChar); stdcall;
 type
   TSuspend = procedure; stdcall;
-  TResume = procedure; stdcall;
+  TResume = procedure(hwnd: HWND); stdcall;
 type
   TGetStatus = function: integer; stdcall;
 
@@ -121,7 +121,7 @@ type
 var
   hHookLib: THandle; {A handle to the hook dll}
   GetHookRecPointer: TGetHookRecPointer; {Function pointer}
-  StartKeyBoardHook: TStartKeyBoardHook; {Function pointer}
+//  StartKeyBoardHook: TStartKeyBoardHook; {Function pointer}
   StopKeyBoardHook: TStopKeyBoardHook; {Function pointer}
   LibLoadSuccess: bool; {If the hook lib was successfully loaded}
   lpHookRec: PHookRec; {A pointer to the hook record}
@@ -133,7 +133,7 @@ var
 procedure TfrmDawn.FormCreate(Sender: TObject);
 begin
   @GetHookRecPointer := nil;
-  @StartKeyBoardHook := nil;
+//  @StartKeyBoardHook := nil;
   @StopKeyBoardHook := nil;
   @SelectKeyboard := nil;
   @SuspendKeyboardHook := nil;
@@ -146,14 +146,15 @@ begin
   begin
     {Get the function addresses}
     @GetHookRecPointer := GetProcAddress(hHookLib, 'GETHOOKRECPOINTER');
-    @StartKeyBoardHook := GetProcAddress(hHookLib, 'STARTKEYBOARDHOOK');
+//    @StartKeyBoardHook := GetProcAddress(hHookLib, 'STARTKEYBOARDHOOK');
     @StopKeyBoardHook := GetProcAddress(hHookLib, 'STOPKEYBOARDHOOK');
     @selectKeyboard := GetProcAddress(hHookLib, 'SELECTKEYBOARD');
     @suspendKeyboardHook := GetProcAddress(hHookLib, 'SUSPENDKEYBOARDHOOK');
     @ResumeKeyboardHook := GetProcAddress(hHookLib, 'RESUMEKEYBOARDHOOK');
     @GetStatus := GetProcAddress(hHookLib, 'GETSTATUS');
     {Did we find all the functions we need?}
-    if ((@GetHookRecPointer <> nil) and (@StartKeyBoardHook <> nil) and
+//    if ((@GetHookRecPointer <> nil) and (@StartKeyBoardHook <> nil) and
+    if ((@GetHookRecPointer <> nil) and (@selectKeyboard <> nil) and
       (@StopKeyBoardHook <> nil)) then
     begin
       LibLoadSuccess := TRUE;
@@ -168,7 +169,7 @@ begin
       FreeLibrary(hHookLib);
       hHookLib := 0;
       @GetHookRecPointer := nil;
-      @StartKeyBoardHook := nil;
+//      @StartKeyBoardHook := nil;
       @StopKeyBoardHook := nil;
       @SelectKeyboard := nil;
       @SuspendKeyboardHook := nil;
@@ -188,7 +189,7 @@ begin
   FreeLibrary(hHookLib);
       hHookLib := 0;
       @GetHookRecPointer := nil;
-      @StartKeyBoardHook := nil;
+//      @StartKeyBoardHook := nil;
       @StopKeyBoardHook := nil;
       @SelectKeyboard := nil;
       @SuspendKeyboardHook := nil;

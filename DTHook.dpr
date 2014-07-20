@@ -293,7 +293,7 @@ end;
 
 exports
 
-  Start name 'STARTKEYBOARDHOOK',
+//  Start name 'STARTKEYBOARDHOOK',
   ResumeKH name 'RESUMEKEYBOARDHOOK',
   Stop name 'STOPKEYBOARDHOOK',
   SuspendKH name 'SUSPENDKEYBOARDHOOK',
