@@ -21,35 +21,25 @@ Interface Declaration for Delphi
 }
 
 {
-Captures the Hook{
-To be called First
+To Select a new Layout and Use
 }
-procedure STARTKEYBOARDHOOK(const hwnd: HWND) stdcall;
-
-
-{
-To resume processing KeyStrokes
-}
-procedure RESUMEKEYBOARDHOOK(const hwnd: HWND) stdcall;
+procedure SELECTKEYBOARD(const hwnd: LongWord; Next: pChar); stdcall; external 'DTHook.dll';
 
 {
 To suspend processing KeyStrokes
 }
-procedure SUSPENDKEYBOARDHOOK; stdcall;
+procedure SUSPENDKEYBOARDHOOK; stdcall; external 'DTHook.dll';
 
 {
-Internal Structure to store metadata
-function GETSTATUS returns Enabled or Ddisabled status
+To resume processing KeyStrokes
 }
-function GETHOOKRECPOINTER: pointer stdcall;
+procedure RESUMEKEYBOARDHOOK(const hwnd: LongWord) stdcall; external 'DTHook.dll';
 
 {
 To return the Hook
 To be called Last
 }
-procedure STOPKEYBOARDHOOK stdcall;
+procedure STOPKEYBOARDHOOK; stdcall; external 'DTHook.dll';
 
-{
-To Select a new Layout and Use
-}
-procedure SELECTKEYBOARD(const hwnd: HWND; Next: pChar); stdcall;
+
+
