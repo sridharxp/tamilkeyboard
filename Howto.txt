@@ -13,8 +13,10 @@ Typically you call SELECTKEYBOARD first
 	SELECTKEYBOARD many times
 	STOPKEYBOARDHOOK fnally.
 
-STARTKEYBOARDHOOK, GETHOOKRECPOINTER, GETSTATUS are legacy functions. STARTKEYBOARDHOOK will be hidden.
+GETHOOKRECPOINTER is for low level use. GETSTATUS is legacy function. 
 
-SELECTKEYBOARD and RESUMEKEYBOARDHOOK need window handle. That is not used for anything now. But it can be used for two way communication between dll and the calling application. Like status Enabled, Disabled, Layout currenly in operation and any other information can be passed to the calling program.
+SELECTKEYBOARD and RESUMEKEYBOARDHOOK need window handle, integer type. That is not used for anything now. But it can be used for two way communication between dll and the calling application. Like status Enabled, Disabled, Layout currenly in operation and any other information can be passed to the calling program.
 
-Is there a case for simple SELECTKEYBOARD and SUMEKEYBOARDHOOK like functions without the Window handle parameter?
+See DTHook.int for Delphi declaration.
+Should be simple to modfy for VB use.
+
