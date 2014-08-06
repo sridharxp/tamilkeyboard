@@ -61,7 +61,7 @@ type
     previous_2_character: integer;
     character_pressed: WORD;
 (*Hinstance of the calling exe *)
-    callapp_hInst: HWND;
+//    callapp_hInst: HWND;
     Keyboard_Enabled: bool;
     NextKeboardName: string;
     SCIMSpan: integer;

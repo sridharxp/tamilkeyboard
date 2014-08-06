@@ -82,10 +82,12 @@ type
 //  TStartKeyBoardHook = procedure(hwnd: HWND); stdcall;
   TStopKeyBoardHook = procedure; stdcall;
 type
-  TSelectKeyboard = procedure(hwnd: HWND; Next: pChar); stdcall;
+//  TSelectKeyboard = procedure(hwnd: HWND; Next: pChar); stdcall;
+  TSelectKeyboard = procedure(Next: pChar); stdcall;
 type
   TSuspend = procedure; stdcall;
-  TResume = procedure(hwnd: HWND); stdcall;
+//  TResume = procedure(hwnd: HWND); stdcall;
+  TResume = procedure; stdcall;
 type
   TGetStatus = function: integer; stdcall;
 
@@ -107,7 +109,7 @@ type
     previous_2_character: integer;
     character_pressed: WORD;
 (*Hinstance of the calling exe *)
-    callapp_hInst: HWND;
+//    callapp_hInst: HWND;
 (*this stores the status of the keyboard which will be queried by the Qt application at regular intervals*)
     Keyboard_Enabled: bool;
     NextKeboardName: string;
@@ -214,8 +216,10 @@ begin
           cmbKbd.ItemIndex := 1;
           cmbKbd.Refresh;
         end;
-        SelectKeyBoard(Self.WindowHandle, pchar(
-          cmbFont.Items[cmbFont.ItemIndex] + ' ' + cmbKbd.Items[cmbKbd.ItemIndex]));
+//        SelectKeyBoard(Self.WindowHandle, pchar(
+//          cmbFont.Items[cmbFont.ItemIndex] + ' ' + cmbKbd.Items[cmbKbd.ItemIndex]));
+        SelectKeyBoard(pchar(cmbFont.Items[cmbFont.ItemIndex] + ' ' +
+        cmbKbd.Items[cmbKbd.ItemIndex]));
       end;
 end;
 

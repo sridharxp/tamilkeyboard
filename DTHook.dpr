@@ -142,7 +142,8 @@ Virtual Key Code is not involved
   end;
 end;
 
-procedure Start(const hwnd: HWND) stdcall;
+//procedure Start(const hwnd: HWND) stdcall;
+procedure Start; stdcall;
 begin
   if lpHookRec^.Keyboard_Enabled then
     Exit;
@@ -165,18 +166,20 @@ begin
     lpHookRec^.Keychanged := False;
     lpHookRec^.Keyboard_Enabled := true;
 
-    lpHookRec^.callapp_hInst := hwnd;
+//    lpHookRec^.callapp_hInst := hwnd;
   end;
 end;
 
 
-procedure ResumeKH(const hwnd: HWND) stdcall;
+//procedure ResumeKH(const hwnd: HWND) stdcall;
+procedure ResumeKH; stdcall;
 begin
   if ((lpHookRec <> nil)) then
   begin
     if ((lpHookRec^.TheHookHandle = 0)) then
     begin
-      Start(HWND);
+//      Start(HWND);
+      Start;
       Exit;
     end;
     lpHookRec^.Keyboard_Enabled := true;
@@ -248,14 +251,16 @@ begin
   result := lpHookRec;
 end;
 
-procedure SelectKeyboard(const hwnd: HWND; Next: pChar); stdcall;
+//procedure SelectKeyboard(const hwnd: HWND; Next: pChar); stdcall;
+procedure SelectKeyboard(Next: pChar); stdcall;
 begin
   SuspendKH;
 
   lpHookRec^.NextKeboardName := Next;
   GetKbdMap;
 
-  ResumeKH(HWND);
+//  ResumeKH(HWND);
+  ResumeKH;
 end;
 
 function GetStatus: integer; stdcall;
