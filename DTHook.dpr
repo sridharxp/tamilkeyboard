@@ -252,7 +252,7 @@ begin
 end;
 
 //procedure SelectKeyboard(const hwnd: HWND; Next: pChar); stdcall;
-procedure SelectKeyboard(Next: pChar); stdcall;
+procedure SelectKeyboard(const Next: pChar); stdcall;
 begin
   SuspendKH;
 

@@ -23,7 +23,7 @@ Interface Declaration for Delphi
 {
 To Select a new Layout and Use
 }
-procedure SELECTKEYBOARD(const hwnd: LongWord; Next: pChar); stdcall; external 'DTHook.dll';
+procedure SELECTKEYBOARD(const Next: pChar); stdcall; external 'DTHook.dll';
 
 {
 To suspend processing KeyStrokes
@@ -33,7 +33,7 @@ procedure SUSPENDKEYBOARDHOOK; stdcall; external 'DTHook.dll';
 {
 To resume processing KeyStrokes
 }
-procedure RESUMEKEYBOARDHOOK(const hwnd: LongWord) stdcall; external 'DTHook.dll';
+procedure RESUMEKEYBOARDHOOK stdcall; external 'DTHook.dll';
 
 {
 To return the Hook
