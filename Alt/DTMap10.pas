@@ -9,11 +9,11 @@ the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 Tamil Keyboard is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of 
+but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License version 3 
+You should have received a copy of the GNU General Public License version 3
 along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 *)
 {
@@ -31,49 +31,49 @@ uses
 
 const
 // Inscript
-SIkee: array [0..327] of ansistring =(
-'D', 'E', 'F', 'R', 'G', 'T', 'X', 'S', 'W', '~', 'A', 'Q', '_',
+SIkee: array [0..330] of ansistring =(
+'D', 'E', 'F', 'R', 'G', 'T', 'X', 'S', 'W', 'Z', 'A', 'Q', '^',
 'k',       'U',     ';',       ']',     '''',     'C',     'l',       'v',     'h',       'c',
-'/',       'j',       'n',    'b',       'B',      'N',     'J',       'V',     'm',       ',',
-'p',       'u',       '&',
+'/',       'j',       'n',    'b',       'B',      'N',     'J',       'V',     'm',       'M',
+'p',       'u',       '<',
 'ke',       'Ue',     ';e',       ']e',     '''e',     'Ce',     'le',       've',     'he',       'ce',
 '/e',       'je',       'ne',    'be',       'Be',      'Ne',     'Je',       'Ve',     'me',       ',e',
-'pe',       'ue',       '&e',
+'pe',       'ue',       '<e',
 'kx',       'Ux',     ';x',       ']x',     '''x',     'Cx',     'lx',       'vx',     'hx',       'cx',
 '/x',       'jx',       'nx',    'bx',       'Bx',      'Nx',     'Jx',       'Vx',     'mx',       ',x',
-'px',       'ux',       '&x',
+'px',       'ux',       '<x',
 'ks',       'Us',     ';s',       ']s',     '''s',     'Cs',     'ls',       'vs',     'hs',       'cs',
 '/s',       'js',       'ns',    'bs',       'Bs',      'Ns',     'Js',       'Vs',     'ms',       ',s',
-'ps',       'us',       '&s',
+'ps',       'us',       '<s',
 'kw',       'Uw',     ';w',       ']w',     '''w',     'Cw',     'lw',       'vw',     'hw',       'cw',
 '/w',       'jw',       'nw',    'bw',       'Bw',      'Nw',     'Jw',       'Vw',     'mw',       ',w',
-'pw',       'uw',       '&w',
+'pw',       'uw',       '<w',
 'kz',       'Uz',     ';z',       ']z',     '''z',     'Cz',     'lz',       'vz',     'hz',       'cz',
 '/z',       'jz',       'nz',    'bz',       'Bz',      'Nz',     'Jz',       'Vz',     'mz',       ',z',
-'pz',       'uz',       '&z',
+'pz',       'uz',       '<z',
 'ka',       'Ua',     ';a',       ']a',     '''a',     'Ca',     'la',       'va',     'ha',       'ca',
 '/a',       'ja',       'na',    'ba',       'Ba',      'Na',     'Ja',       'Va',     'ma',       ',a',
-'pa',       'ua',       '&a',
+'pa',       'ua',       '<a',
 'kq',       'Uq',     ';q',       ']q',     '''q',     'Cq',     'lq',       'vq',     'hq',       'cq',
 '/q',       'jq',       'nq',    'bq',       'Bq',      'Nq',     'Jq',       'Vq',     'mq',       ',q',
-'pq',       'uq',       '&q',
+'pq',       'uq',       '<q',
 
 '/d',     'Nd',     'Vd',     'kd',     'hd',     'jd',     'Bd',     'ld',     'cd',     '''d',     'Jd',     'vd',
-';d',     'bd',     'nd',     'Cd',     'md',     'pd',     ',d',     'ud',     '&d',     'Ud',     ']d',     '/f',
+';d',     'bd',     'nd',     'Cd',     'md',     'pd',     ',d',     'ud',     '<d',     'Ud',     ']d',     '/f',
 'Nf',     'Vf',     'kf',     'hf',     'jf',     'Bf',     'lf',     'cf',     '''f',     'Jf',     'vf',
-';f',     'bf',     'nf',     'Cf',     'mf',     'pf',     ',f',     'uf',     '&f',     'Uf',     ']f',
+';f',     'bf',     'nf',     'Cf',     'mf',     'pf',     ',f',     'uf',     '<f',     'Uf',     ']f',
 '/r',     'Nr',     'Vr',     'kr',     'hr',     'jr',     'Br',     'lr',     'cr',     '''r',     'Jr',
-'vr',     ';r',     'br',     'nr',     'Cr',     'mr',     'pr',     ',r',     'ur',     '&r',     'Ur',
+'vr',     ';r',     'br',     'nr',     'Cr',     'mr',     'pr',     ',r',     'ur',     '<r',     'Ur',
 ']r',     '/g',     'Ng',     'Vg',     'kg',     'hg',     'jg',     'Bg',     'lg',     'cg',     '''g',     'Jg',
-'vg',     ';g',     'bg',     'ng',     'Cg',     'mg',     'pg',     ',g',     'ug',     '&g',    'Ug',     ']g',     '/t',     'Nt',     'Vt',     'kt',     'ht',
+'vg',     ';g',     'bg',     'ng',     'Cg',     'mg',     'pg',     ',g',     'ug',     '<g',    'Ug',     ']g',     '/t',     'Nt',     'Vt',     'kt',     'ht',
 'jt',     'Bt',     'lt',     'ct',     '''t',     'Jt',     'vt',     ';t',     'bt',     'nt',     'Ct',
-'mt',     'pt',     ',t',     'ut',     '&t', 'Ut',
+'mt',     'pt',     ',t',     'ut',     '<t', 'Ut',
 ']t',
 '0',      '1',      '2',      '3',     '4',      '5',      '6',      '7',      '8',      '9',
-'?',      '(',      ')',      '=',      '+',     '-'
+'?',      '(',      ')',      '=',      '+',     '-' ,       ',',    '.',      '>'
 );
 
-SIFee: array [0..983] of integer =(
+SIFee: array [0..992] of integer =(
 $B6,0,0,   $67,0,0,   $D6,0,0,   $7E,0,0,   $63,0,0,   $BB,0,0,   $A8,0,0,   $B0,0,0,   $6E,0,0,   $CE,0,0,
 $7B,0,0,   $CE,$65,0, $E0,0,0,   $EF,0,0,   $F4,0,0,   $C4,0,0,   $51,0,0,   $A6,0,0,   $F0,0,0,   $3E,0,0,
 $E5,0,0,   $C3,0,0,   $5C,0,0,   $42,0,0,   $AB,0,0,   $E9,0,0,   $6B,0,0,   $77,0,0,   $65,0,0,   $C5,0,0,
@@ -106,7 +106,9 @@ $4B,0,0,   $62,0,0,   $71,0,0,   $68,0,0, $D7,$0,0, $F8,0,0, $59,0,0, $F4,0,0,  
 $6A,0,0,   $FB,0,0,   $ED,0,0,   $AF,0,0,   $D4,0,0,   $F1,0,0,   $23,0,0,   $4A,0,0,   $F9,0,0,   $47,0,0,
 $B1,0,0,   $F3,0,0,     $C6,0,0,   $D9,0,0,   $49,0,0,   $60,$0,0, $C9,0,0, $A3,0,0, $DA,0,0, $66,0,0,
 $F4,0,0,   $51,0,0,   $30,0,0,   $31,0,0,   $32,0,0,   $33,0,0,   $34,0,0,   $35,0,0,   $36,0,0,   $37,0,0,
-$38,0,0,   $39,0,0,   $3F,0,0,     $28,0,0,     $29,0,0,     $3D,0,0,     $2B,0,0,     $2D,0,0);
+$38,0,0,   $39,0,0,   $3F,0,0,   $28,0,0,     $29,0,0,     $3D,0,0,     $2B,0,0,     $2D,0,0,
+$2C,0,0,   $2E,0,0,   $70,0,0
+);
 
 implementation
 
