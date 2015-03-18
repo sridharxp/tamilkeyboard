@@ -134,6 +134,9 @@ var
 //  procedure GenUKey(const vk: integer;  const bUnicode: bool);
   procedure GenKey(const vk: integer;  const bUnicode: bool);
 
+  procedure MapFileMemory(dwAllocSize: DWORD);
+  procedure UnMapFileMemory;
+
 implementation
 uses
   DTMap1, DTMap2, DTMap3, DTMap4, DTMap7, DTMap8;
@@ -407,6 +410,57 @@ procedure ErrorDlg(Const Msg: string);
 begin
   MessageDlg(Msg, mtError, [mbOK], 0);
 end;
+
+procedure MapFileMemory(dwAllocSize: DWORD);
+begin
+  {Create a process wide memory mapped variable}
+  hObjHandle := CreateFileMapping($FFFFFFFF, nil, PAGE_READWRITE, 0, dwAllocSize,
+    'HookRecMemBlock');
+  if (hObjHandle = 0) then
+  begin
+    MessageBox(0, 'Hook DLL', 'Could not create file Map object', MB_OK);
+    exit;
+  end;
+  {Get a pointer to our process wide memory mapped variable}
+  lpHookRec := MapViewOfFile(hObjHandle, FILE_MAP_WRITE, 0, 0, dwAllocSize);
+  if (lpHookRec = nil) then
+  begin
+    CloseHandle(hObjHandle);
+    MessageBox(0, 'Hook DLL', 'Could not Map file', MB_OK);
+    exit;
+  end;
+  lpHookRec^.TheHookHandle := 0;
+end;
+
+procedure UnMapFileMemory;
+begin
+  {Delete our process wide memory mapped variable}
+  if (lpHookRec <> nil) then
+  begin
+    UnMapViewOfFile(lpHookRec);
+    lpHookRec := nil;
+  end;
+  if (hObjHandle > 0) then
+  begin
+    CloseHandle(hObjHandle);
+    hObjHandle := 0;
+  end;
+end;
+
+initialization
+
+finalization
+  if ModuleIsLib then
+  begin
+        {If we are getting unmapped from a process then, remove the pointer to
+                                our process wide memory mapped variable}
+        UnMapFileMemory;
+        if Assigned(KeyboardMap) then
+          begin
+            KeyboardMap.Empty;
+            KeyboardMap.Free;
+        end;
+  end;
 
 end.
 

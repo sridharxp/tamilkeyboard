@@ -19,6 +19,8 @@ along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 program DTUtil;
 
 uses
+  FastMM4 in '..\..\DL\FastMM4991\FastMM4.pas',
+  FastMM4Messages in '..\..\DL\FastMM4991\FastMM4Messages.pas',
   Forms,
   Dawn in 'Dawn.pas' {frmDawn},
   MapUtil in 'MapUtil.pas' {frmMaputil},

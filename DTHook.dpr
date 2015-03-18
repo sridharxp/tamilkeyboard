@@ -23,6 +23,8 @@ When changing layouts hook is not released
 library DTHook;
 
 uses
+  FastMM4 in '..\..\DL\FastMM4991\FastMM4.pas',
+  FastMM4Messages in '..\..\DL\FastMM4991\FastMM4Messages.pas',
   Windows,
   Dialogs,
   Messages,
@@ -209,6 +211,7 @@ begin
       lpHookRec^.Keyboard_Enabled := False;
 end;
 
+(*
 procedure MapFileMemory(dwAllocSize: DWORD);
 begin
   {Create a process wide memory mapped variable}
@@ -229,7 +232,8 @@ begin
   end;
   lpHookRec^.TheHookHandle := 0;
 end;
-
+*)
+(*
 procedure UnMapFileMemory;
 begin
   {Delete our process wide memory mapped variable}
@@ -244,6 +248,7 @@ begin
     hObjHandle := 0;
   end;
 end;
+*)
 
 function GetHookRecPointer: pointer stdcall;
 begin
@@ -270,6 +275,7 @@ begin
     Result := 1;
 end;
 
+(*
 procedure DllEntryPoint(dwReason: DWORD);
 begin
   case dwReason of
@@ -295,6 +301,7 @@ begin
       end;
   end;
 end;
+*)
 
 exports
 
@@ -308,10 +315,18 @@ exports
   DropName name 'GetAuthor';
 
 begin
+(*
   {Set our Dll's main entry point}
   DLLProc := @DllEntryPoint;
   {Call our Dll's main entry point}
   DllEntryPoint(Dll_Process_Attach);
+*)
+        {If we are getting mapped into a process, then get a pointer to our
+                                process wide memory mapped variable}
+  hObjHandle := 0;
+  lpHookRec := nil;
+  MapFileMemory(sizeof(lpHookRec^));
+  KeyboardMap := THashTable.Create(False);
 end.
 
 
