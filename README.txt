@@ -4,14 +4,18 @@ Keyboard Layout Tool for languages.
 Tamil Keyboard Implementation usable.
 Can be extended to other Indian Languages / Layouts
 
-Features
+Features (Tamil)
 
-    Unicode, Ansi and legacy Gist fonts support
+    Unicode, Ansi and legacy Gist, Vanavil Anu fonts support
     Typewriter, Inscript Layouts
-    API for Developers
+	Phonetic Layout in progress
+
+Features (Architecture)
+
     Ligature, Dead Key Support
-    Extensible to other Layouts
+    API for Application Developers
+    Applicable to most Layouts
 
 Language: Delphi
 Platform: MS Windows
-License: Open Source
+License: Open Source (GPL)
