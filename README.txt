@@ -6,9 +6,9 @@ Can be extended to other Indian Languages / Layouts
 
 Features (Tamil)
 
-    Unicode, Ansi and legacy Gist, Vanavil Anu fonts support
+    Unicode, Ansi and legacy Gist, Vanavil, Anu fonts support
     Typewriter, Inscript Layouts
-	Phonetic Layout in progress
+    Phonetic Layout in progress
 
 Features (Architecture)
 
@@ -19,3 +19,5 @@ Features (Architecture)
 Language: Delphi
 Platform: MS Windows
 License: Open Source (GPL)
+
+
