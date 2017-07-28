@@ -32,6 +32,16 @@ uses
   BSearch,
   EZDSLHsh;
 
+{
+Key is added at the rightmost position
+So while searching n characters from right have significance
+}
+{
+SCIM_n    Set of Codepoints to send for a layout
+SCIMLen  No of Codepoints to send for a layout
+BufStr  Previous Keys cache
+SCIMUndo Previous Code Points' Cache
+}
 type
   TSCIM_4 = array [0..3] of integer;
   pSCIM_4 = ^TSCIM_4;
@@ -64,7 +74,7 @@ type
 //    callapp_hInst: HWND;
     Keyboard_Enabled: bool;
     NextKeboardName: string;
-    SCIMSpan: integer;
+    SCIMLen: integer;
   end;
 
   tagKBDLLHOOKSTRUCT = record
@@ -78,29 +88,27 @@ type
   PKBDLLHOOKSTRUCT = ^tagKBDLLHOOKSTRUCT;
   LPKBDLLHOOKSTRUCT = ^tagKBDLLHOOKSTRUCT;
 
-//  TGenKey = procedure(const vk: integer;  const bUnicode: bool);
-
 Const
-  SCIMCycle = 5;
+  BufLen = 5;
   valid_keys: array [1..63] of integer = (
-//Backspace, enter keys
+{ Backspace, enter keys }
    $08, $0D,
-//Special characters ESC
+{ Special characters ESC }
   $1B,
-//space key
+{ space key }
   $20,
-//numbers - 10
+{ numbers - 10 }
   $30, $31, $32, $33, $34, $35, $36, $37, $38, $39,
-  //alphabets - 26
+{ alphabets - 26 }
   $41, $42, $43, $44, $45, $46, $47, $48,
   $49, $4A, $4B, $4C, $4D, $4E, $4F, $50, $51,
   $52, $53, $54, $55, $56, $57, $58, $59, $5A,
-// funcion keys F1 to F12
+{ funcion keys F1 to F12 }
   $70, $71, $72, $73, $74, $75, $76, $77, $78, $79, $7A, $7B,
-//special characters ; - , + / .
+{ special characters ; - , + / . }
 // ; + , - . /
   $BA, $BB, $BC, $BD, $BE, $BF,
-//special characters ~ [ \ ] '
+{ special characters ~ [ \ ] ' }
 // ` [ \ ] '
   $C0, $DB, $DC, $DD, $DE
   );
@@ -120,18 +128,16 @@ var
   hObjHandle: THandle; {Variable for the file mapping object}
   lpHookRec: PHookRec; {Pointer to our hook record}
   keyboardmap: THashTable;
-  Refstr: array [1..SCIMCycle] of AnsiChar = '     ';
-  DeadKeyLength: integer = 0;
+  BufStr: array [1..BufLen] of AnsiChar = '     ';
   prev_ucchar_length: integer = 0;
-//  GenKey: TGenKey;
+  SCIMUndo: array [1..BufLen]of Integer;
 
   procedure GetKbdMap;
   procedure LoadKbdMap(const Kee: array of Ansistring; fee: array of integer);
   function DoKeyboard: boolean;
   procedure GenLangCode(const iChars: array of integer);
-  function ApplySCIM(const Count: integer): boolean;
+  function ApplySCIM(const KeyLen: integer): boolean;
   procedure ErrorDlg(const Msg: string);
-//  procedure GenUKey(const vk: integer;  const bUnicode: bool);
   procedure GenKey(const vk: integer;  const bUnicode: bool);
 
   procedure MapFileMemory(dwAllocSize: DWORD);
@@ -139,56 +145,84 @@ var
 
 implementation
 uses
-  DTMap1, DTMap2, DTMap3, DTMap4, DTMap7, DTMap8;
+  DTMap1, DTMap2, DTMap3, DTMap4, DTMap5, DTMap7, DTMap8, DTMap9, DTMap10,
+  DTMap12;
 
 procedure GetKbdMap;
+var
+  Count: Integer;
 begin
   if (lpHookRec^.KeyboardName <> lpHookRec^.NextKeboardName) then
   begin
     lpHookRec^.KeyboardName := lpHookRec^.NextKeboardName;
     KeyBoardMap.Empty;
   end;
-//  GenKey := GenUkey;
   if lpHookRec^.NextKeboardName = 'ISCII Typewriter' then
   begin
-    lpHookRec^.SCIMSpan := 1;
+    lpHookRec^.SCIMLen := 1;
     KeyBoardMap.TableSize := 350;
     LoadKbdMap(BTKee, BTFee);
   end;
   if lpHookRec^.NextKeboardName = 'Tam Typewriter' then
   begin
-    lpHookRec^.SCIMSpan := 1;
+    lpHookRec^.SCIMLen := 1;
     KeyBoardMap.TableSize := 350;
     LoadKbdMap(ATKee, ATFee);
   end;
   if lpHookRec^.NextKeboardName = 'Tam Inscript' then
   begin
-    lpHookRec^.SCIMSpan := 3;
+    lpHookRec^.SCIMLen := 3;
     KeyBoardMap.TableSize := 600;
     LoadKbdMap(AIKee, AIFee);
   end;
   if lpHookRec^.NextKeboardName = 'ISCII Inscript' then
   begin
-    lpHookRec^.SCIMSpan := 3;
+    lpHookRec^.SCIMLen := 3;
     KeyBoardMap.TableSize := 600;
     LoadKbdMap(BIKee, BIFee);
   end;
 
   if lpHookRec^.NextKeboardName = 'Tau Typewriter' then
   begin
-    lpHookRec^.SCIMSpan := 4;
+    lpHookRec^.SCIMLen := 4;
     KeyBoardMap.TableSize := 600;
     LoadKbdMap(UTKee, UTFee);
   end;
   if lpHookRec^.NextKeboardName = 'Tau Inscript' then
   begin
-    lpHookRec^.SCIMSpan := 4;
+    lpHookRec^.SCIMLen := 4;
     KeyBoardMap.TableSize := 600;
     LoadKbdMap(UIKee, UIFee);
   end;
-{ Cleanup Variables }
-  Refstr := '     ';
-  DeadKeyLength := 0;
+  if lpHookRec^.NextKeboardName = 'Tau Phonetic' then
+  begin
+    lpHookRec^.SCIMLen := 4;
+    KeyBoardMap.TableSize := 600;
+    LoadKbdMap(UPKee, UPFee);
+  end;
+  if lpHookRec^.NextKeboardName = 'Vanavil Typewriter' then
+  begin
+    lpHookRec^.SCIMLen := 1;
+    KeyBoardMap.TableSize := 350;
+    LoadKbdMap(VTKee, VTFee);
+  end;
+  if lpHookRec^.NextKeboardName = 'Anu Typewriter' then
+  begin
+    lpHookRec^.SCIMLen := 1;
+    KeyBoardMap.TableSize := 350;
+    LoadKbdMap(STKee, STFee);
+  end;
+  if lpHookRec^.NextKeboardName = 'Anu Inscript' then
+  begin
+    lpHookRec^.SCIMLen := 3;
+    KeyBoardMap.TableSize := 600;
+    LoadKbdMap(SIKee, SIFee);
+  end;
+{ Cleanup Key Cache }
+  Bufstr := '     ';
+{ Cleanup Codepoint Cache }
+  for Count :=  1 to BufLen do
+    SCIMUndo[Count] := 0;
   prev_ucchar_length := 0;
 end;
 
@@ -200,7 +234,7 @@ rsize: integer;
 begin
   if KeyboardMap.Count > 0 then
     exit;
-  rsize := lpHookRec^.SCIMSpan;
+  rsize := lpHookRec^.SCIMLen;
   case rsize of
   1:
   begin
@@ -267,44 +301,46 @@ begin
   if not BinarySearch(Valid_Keys, lpHookRec^.current_vkCode, 63) then
     exit;
 
-  (*character_pressed contains the english alphabet pressed, its obtained from the hookdll*)
-  for Count :=  1 to SCIMCycle -1 do
-    Refstr[Count] := Refstr[Count+1];
-  Refstr[SCIMCycle] := Char(lpHookRec^.character_pressed);
+{ Filter BS which was a show stopper for Phonetic layout }
+  if  lpHookRec^.current_vkCode = $08 then
+    Exit;
 
-  for Count := SCIMCycle downto 1 do
+  (*character_pressed contains the english alphabet pressed, its obtained from the hookdll*)
+  for Count :=  1 to BufLen -1 do
+    Bufstr[Count] := Bufstr[Count+1];
+  Bufstr[BufLen] := Char(lpHookRec^.character_pressed);
+  for Count :=  1 to BufLen -1 do
+    SCIMUndo[Count] := SCIMUndo[Count+1];
+  SCIMUndo[BufLen] := 0;
+
+  for Count := BufLen downto 1 do
     if ApplySCIM(Count) then
     begin
       Result := True;
       break;
     end;
-  if not Result then
-    DeadKeyLength := DeadKeyLength + 1;
 end;
 
-function ApplySCIM(const Count: integer): boolean;
+function ApplySCIM(const KeyLen: integer): boolean;
 var
-  prev_char_to_delete: string;
   kstr: string;
   wstr: pointer;
+  Count: Integer;
 begin
-  kstr := RightStr(Refstr, Count);
+  kstr := RightStr(Bufstr, KeyLen);
   if not keyboardmap.Search(kstr, wstr) then
   begin
       Result := False;
       Exit;
   end;
 
-  prev_char_to_delete := RightStr(kstr, Count);
-  prev_char_to_delete := LeftStr(prev_char_to_delete, Count-1);
-  prev_ucchar_length := Length(prev_char_to_delete);
-
-  prev_ucchar_length := prev_ucchar_length - DeadKeyLength;
-  DeadKeyLength := 0;
-  if prev_ucchar_length < 0 then
-    prev_ucchar_length := 0;
-
-  Case lpHookRec^.SCIMSpan of
+  prev_ucchar_length := -0;
+  for Count :=  BufLen - KeyLen + 1 to BufLen - 1  do
+  begin
+    prev_ucchar_length := prev_ucchar_length + SCIMUndo[Count];
+    SCIMUndo[Count] := 0;
+  end;
+  Case lpHookRec^.SCIMLen of
   4:
     GenLangCode(pSCIM_4(wstr)^);
   3:
@@ -329,8 +365,7 @@ begin
   then
   begin
     i := 0;
-    while i < prev_ucchar_length
-    do
+    while i < prev_ucchar_length do
     begin
 { Coreldraw, Wordpad etc do not like unicode backspace }
       Genkey(8, False);
@@ -343,8 +378,11 @@ begin
     j := 0;
     while j < current_ucchar_length do
     begin
-      if ichars[j] >0 then
-        Genkey(ichars[j], True)
+      if ichars[j] > 0 then
+      begin
+        Genkey(ichars[j], True);
+        SCIMUndo[BufLen] :=  SCIMUndo[BufLen] + 1;
+      end
       else
         break;
       inc(j);
@@ -352,7 +390,6 @@ begin
   end;
 end;
 
-//procedure GenUKey(const vk: integer;  const bUnicode: bool);
 procedure GenKey(const vk: integer;  const bUnicode: bool);
 var
   kb: TKEYBDINPUT;
