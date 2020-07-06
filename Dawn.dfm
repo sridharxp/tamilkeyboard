@@ -1,15 +1,15 @@
 object frmDawn: TfrmDawn
   Left = 192
   Top = 132
-  Width = 265
-  Height = 176
+  Width = 300
+  Height = 177
   Caption = 'Dawn Tamil '
   Color = clBtnFace
-  Constraints.MaxHeight = 180
-  Constraints.MaxWidth = 265
+  Constraints.MaxHeight = 200
+  Constraints.MaxWidth = 300
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -15
+  Font.Height = -16
   Font.Name = 'Tahoma'
   Font.Style = []
   Menu = MainMenu1
@@ -18,64 +18,69 @@ object frmDawn: TfrmDawn
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  PixelsPerInch = 120
-  TextHeight = 18
+  PixelsPerInch = 96
+  TextHeight = 19
+  object lHelp: TLabel
+    Left = 29
+    Top = 96
+    Width = 234
+    Height = 14
+    Caption = 'Press F1 to Activate; Alt+F1 to DeActivate'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
   object Panel1: TPanel
-    Left = 10
-    Top = 64
-    Width = 241
-    Height = 40
+    Left = 0
+    Top = 50
+    Width = 280
+    Height = 31
     TabOrder = 0
     object cmbKbd: TComboBox
-      Left = 128
-      Top = 7
-      Width = 110
-      Height = 26
-      ItemHeight = 18
-      ItemIndex = 0
+      Left = 144
+      Top = 5
+      Width = 120
+      Height = 27
+      ItemHeight = 19
       TabOrder = 0
-      Text = 'Typewriter'
       Items.Strings = (
         'Typewriter'
-        'Inscript')
+        'Inscript'
+        'Phonetic')
     end
     object cmbFont: TComboBox
-      Left = 8
-      Top = 7
-      Width = 110
-      Height = 26
-      ItemHeight = 18
-      ItemIndex = 2
+      Left = 30
+      Top = 5
+      Width = 100
+      Height = 27
+      ItemHeight = 19
       TabOrder = 1
-      Text = 'Tau'
       Items.Strings = (
         'ISCII'
         'Tam'
-        'Tau')
+        'Tau'
+        'Vanavil'
+        'Anu')
     end
   end
   object Panel2: TPanel
-    Left = 10
+    Left = 0
     Top = 0
-    Width = 241
-    Height = 40
+    Width = 280
+    Height = 31
     TabOrder = 1
-    object lblLayout: TLabel
-      Left = 5
-      Top = 11
-      Width = 44
-      Height = 18
-      Caption = 'Layout'
-    end
     object Info: TLabel
-      Left = 64
-      Top = 11
-      Width = 96
-      Height = 18
+      Left = 88
+      Top = 9
+      Width = 104
+      Height = 19
       Caption = 'No Keyboard'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -15
+      Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
@@ -87,13 +92,16 @@ object frmDawn: TfrmDawn
     Top = 65512
   end
   object MainMenu1: TMainMenu
-    Left = 64
-    Top = 16
+    Left = 224
+    Top = 40
     object Help1: TMenuItem
       Caption = 'Help'
       object HotKeys1: TMenuItem
         Caption = 'HotKeys'
         OnClick = HotKeys1Click
+      end
+      object Specs1: TMenuItem
+        Caption = 'Specs'
       end
       object Author1: TMenuItem
         Caption = 'Author'

@@ -13,7 +13,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License version 3 
+You should have received a copy of the GNU General Public License version 3
 along with Tamil Keyboard.  If not, see <http://www.gnu.org/licenses/>.
 *)
 {
@@ -61,20 +61,24 @@ type
 //    TheAppWinHandle: HWND;
     current_vkCode: DWORD;
     shiftkey_pressed: bool;
-    caplock_pressed: bool;
+    capslock_pressed: bool;
     altkey_pressed: bool;
     controlkey_pressed: bool;
-    spacebar_pressed: bool;
+//    spacebar_pressed: bool;
     backspace_pressed: bool;
+    NUMLOCK_pressed: BOOL;
+    SCROLLLOCK_pressed: BOOL;
     KeyChanged: bool;
-    previous_1_character: integer;
-    previous_2_character: integer;
+//    previous_1_character: integer;
+//    previous_2_character: integer;
     character_pressed: WORD;
 (*Hinstance of the calling exe *)
 //    callapp_hInst: HWND;
     Keyboard_Enabled: bool;
     NextKeboardName: string;
     SCIMLen: integer;
+    IsUnicode: Boolean;
+    IsBS_scancode: boolean;
   end;
 
   tagKBDLLHOOKSTRUCT = record
@@ -90,6 +94,7 @@ type
 
 Const
   BufLen = 5;
+  UndoLen = 12;
   valid_keys: array [1..63] of integer = (
 { Backspace, enter keys }
    $08, $0D,
@@ -130,7 +135,7 @@ var
   keyboardmap: THashTable;
   BufStr: array [1..BufLen] of AnsiChar = '     ';
   prev_ucchar_length: integer = 0;
-  SCIMUndo: array [1..BufLen]of Integer;
+  SCIMUndo: array [1..UndoLen]of Integer;
 
   procedure GetKbdMap;
   procedure LoadKbdMap(const Kee: array of Ansistring; fee: array of integer);
@@ -156,6 +161,7 @@ begin
   begin
     lpHookRec^.KeyboardName := lpHookRec^.NextKeboardName;
     KeyBoardMap.Empty;
+    lpHookRec^.IsUnicode := False;
   end;
   if lpHookRec^.NextKeboardName = 'ISCII Typewriter' then
   begin
@@ -187,18 +193,21 @@ begin
     lpHookRec^.SCIMLen := 4;
     KeyBoardMap.TableSize := 600;
     LoadKbdMap(UTKee, UTFee);
+    lpHookRec^.IsUnicode := True;
   end;
   if lpHookRec^.NextKeboardName = 'Tau Inscript' then
   begin
     lpHookRec^.SCIMLen := 4;
     KeyBoardMap.TableSize := 600;
     LoadKbdMap(UIKee, UIFee);
+    lpHookRec^.IsUnicode := True;
   end;
   if lpHookRec^.NextKeboardName = 'Tau Phonetic' then
   begin
     lpHookRec^.SCIMLen := 4;
     KeyBoardMap.TableSize := 600;
     LoadKbdMap(UPKee, UPFee);
+    lpHookRec^.IsUnicode := True;
   end;
   if lpHookRec^.NextKeboardName = 'Vanavil Typewriter' then
   begin
@@ -219,9 +228,11 @@ begin
     LoadKbdMap(SIKee, SIFee);
   end;
 { Cleanup Key Cache }
-  Bufstr := '     ';
-{ Cleanup Codepoint Cache }
+//  Bufstr := '     ';
   for Count :=  1 to BufLen do
+    Bufstr[Count] := ' ';
+{ Cleanup Codepoint Cache }
+  for Count :=  1 to UndoLen do
     SCIMUndo[Count] := 0;
   prev_ucchar_length := 0;
 end;
@@ -290,6 +301,7 @@ end;
 function DoKeyboard: boolean;
 var
   Count: integer;
+  Cancelled: Integer;
 begin
   Result := False;
 
@@ -298,20 +310,38 @@ begin
     Exit;
   end;
 
+  if  lpHookRec^.IsUnicode then
+  begin
+    if lpHookRec^.IsBS_scancode then
+    begin
+      lpHookRec^.IsBS_scancode := False;
+      Cancelled := 0;
+      for count := UndoLen downto 1 do
+        if  SCIMUndo[Count] > 0 then
+        begin
+          Cancelled := SCIMUndo[Count];
+          SCIMUndo[Count] := 0;
+          break;
+        end;
+      for Count := 1 to Cancelled-1 do
+        Genkey(8, False);
+    end;
+  end;
   if not BinarySearch(Valid_Keys, lpHookRec^.current_vkCode, 63) then
     exit;
-
-{ Filter BS which was a show stopper for Phonetic layout }
+  if  Cancelled > 1 then
   if  lpHookRec^.current_vkCode = $08 then
     Exit;
 
-  (*character_pressed contains the english alphabet pressed, its obtained from the hookdll*)
+{ character_pressed contains the english alphabet pressed, its obtained from the hookdll }
   for Count :=  1 to BufLen -1 do
     Bufstr[Count] := Bufstr[Count+1];
   Bufstr[BufLen] := Char(lpHookRec^.character_pressed);
-  for Count :=  1 to BufLen -1 do
+  for Count :=  1 to UndoLen -1 do
     SCIMUndo[Count] := SCIMUndo[Count+1];
-  SCIMUndo[BufLen] := 0;
+  SCIMUndo[UndoLen] := 0;
+  if (lpHookRec^.character_pressed in [$0D, $20]) then
+    SCIMUndo[UndoLen] := 1;
 
   for Count := BufLen downto 1 do
     if ApplySCIM(Count) then
@@ -327,7 +357,7 @@ var
   wstr: pointer;
   Count: Integer;
 begin
-  kstr := RightStr(Bufstr, KeyLen);
+  kstr := AnsiRightStr(Bufstr, KeyLen);
   if not keyboardmap.Search(kstr, wstr) then
   begin
       Result := False;
@@ -337,8 +367,8 @@ begin
   prev_ucchar_length := -0;
   for Count :=  BufLen - KeyLen + 1 to BufLen - 1  do
   begin
-    prev_ucchar_length := prev_ucchar_length + SCIMUndo[Count];
-    SCIMUndo[Count] := 0;
+    prev_ucchar_length := prev_ucchar_length + SCIMUndo[UndoLen-BufLen+Count];
+    SCIMUndo[UndoLen-BufLen+Count] := 0;
   end;
   Case lpHookRec^.SCIMLen of
   4:
@@ -359,9 +389,9 @@ var
   i: integer;
   j: integer;
 begin
-  (* store the length of the characters globally*)
-  current_ucchar_length:= Length(ichars); (*Delete the previous unicode characters if both previous and current characters are present*)
-  if (prev_ucchar_length > 0) and (current_ucchar_length>0)
+{ store the length of the characters globally }
+  current_ucchar_length := Length(ichars); (*Delete the previous unicode characters if both previous and current characters are present*)
+  if (prev_ucchar_length > 0) and (current_ucchar_length > 0)
   then
   begin
     i := 0;
@@ -372,7 +402,7 @@ begin
       inc(i);
     end;
   end;
-  (*generate the unicode characters if the matching character is found in the keyboard file*)
+{ generate the unicode characters if the matching character is found in the keyboard file }
   if current_ucchar_length > 0 then
   begin
     j := 0;
@@ -381,7 +411,7 @@ begin
       if ichars[j] > 0 then
       begin
         Genkey(ichars[j], True);
-        SCIMUndo[BufLen] :=  SCIMUndo[BufLen] + 1;
+        SCIMUndo[UndoLen] :=  SCIMUndo[UndoLen] + 1;
       end
       else
         break;
@@ -396,8 +426,8 @@ var
   Input: TINPUT;
 begin
   {keydown}
-  lpHookRec^.previous_2_character:= lpHookRec^.previous_1_character;
-  lpHookRec^.previous_1_character:= vk; {update previous characters}
+//  lpHookRec^.previous_2_character:= lpHookRec^.previous_1_character;
+//  lpHookRec^.previous_1_character:= vk; {update previous characters}
 
 {  ZeroMemory(@kb,sizeof(kb));}
 {  ZeroMemory(@input,sizeof(input));}

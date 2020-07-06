@@ -21,6 +21,7 @@ Unicode Codepoint Calculator
 }
 unit CodePoint;
 
+{$DEFINE Pascal}
 interface
 
 uses
@@ -47,13 +48,15 @@ type
     edtCp: TEdit;
     btnUtf2Cp: TButton;
     Button3: TButton;
-    BbtnCp2Utf: TButton;
+    btnBbtnCp2UtfHex: TButton;
     Label6: TLabel;
     Label7: TLabel;
+    btn1: TButton;
     procedure Button1Click(Sender: TObject);
     procedure btnUtf2CpClick(Sender: TObject);
     procedure Button3Click(Sender: TObject);
-    procedure BbtnCp2UtfClick(Sender: TObject);
+    procedure btnBbtnCp2UtfClick(Sender: TObject);
+    procedure btnBbtnCp2UtfHexClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -153,7 +156,7 @@ begin
   Result := HexStr;
 end;
 
-procedure TfrmCPCalc.BbtnCp2UtfClick(Sender: TObject);
+procedure TfrmCPCalc.btnBbtnCp2UtfClick(Sender: TObject);
 var
   CP: integer;
   bits: Extended;
@@ -182,4 +185,59 @@ begin
   edtUtf8.Text := Utf8;
 end;
 
+{$IFDEF Pascal}
+procedure TfrmCPCalc.btnBbtnCp2UtfHexClick(Sender: TObject);
+var
+  CP: integer;
+  bits: Extended;
+  Utf8: string;
+begin
+  cp := StrtoInt('$' + edtCp.Text);
+  bits	:= log2(cp) + 1 ;
+  if( bits <= 7 )	then			//Single Byte
+			Utf8 := 'Chr($' + InttoHex(CP,2) + ')'
+  else if( bits <= 11 )	then		//Two Bytes
+			Utf8 := 'Chr($' + InttoHex( ( ( CP shr 6 ) and $1F ) or $C0, 2 )
+          + ')+Chr($' + InttoHex( ( CP and $3F ) or $80, 2 ) + ')'
+  else if( bits <= 16 )	then		//Three Bytes
+			Utf8 := 'Chr($' + InttoHex( ( ( CP shr 12 ) and $0F ) or $E0, 2 )
+          + ')+Chr($' + InttoHex( ( ( CP shr 6 ) and $3F ) or $80, 2 )
+          + ')+Chr($' + InttoHex( ( CP and $3F ) or $80, 2 ) + ')'
+  else if( bits <=21 )	then		//Four Bytes
+			Utf8 := 'Chr($' + InttoHex( ( ( CP shr 18 ) and $07 ) or $F0, 2 )
+          + ')+Chr($' + InttoHex( ( ( CP shr 12 ) and $3F ) or $80, 2 )
+          + ')+Chr($' + InttoHex( ( ( CP shr 6 ) and $3F ) or $80, 2 )
+          + ')+Chr($' + InttoHex( ( CP and $3F ) or $80, 2 ) + ')'
+  else
+			Utf8 :=  '';	//Cannot be encoded as Valid UTF-8
+  edtUtf8.Text := Utf8;
+end;
+{$ELSE}
+procedure TfrmCPCalc.btnBbtnCp2UtfHexClick(Sender: TObject);
+var
+  CP: integer;
+  bits: Extended;
+  Utf8: string;
+begin
+  cp := StrtoInt('$' + edtCp.Text);
+  bits	:= log2(cp) + 1 ;
+  if( bits <= 7 )	then			//Single Byte
+			Utf8 := InttoHex(CP,2)
+  else if( bits <= 11 )	then		//Two Bytes
+			Utf8 := InttoHex( ( ( CP shr 6 ) and $1F ) or $C0, 2 )
+          + ' ' + InttoHex( ( CP and $3F ) or $80, 2 )
+  else if( bits <= 16 )	then		//Three Bytes
+			Utf8 := InttoHex( ( ( CP shr 12 ) and $0F ) or $E0, 2 )
+          + ' ' + InttoHex( ( ( CP shr 6 ) and $3F ) or $80, 2 )
+          + ' ' + InttoHex( ( CP and $3F ) or $80, 2 )
+  else if( bits <=21 )	then		//Four Bytes
+			Utf8 := InttoHex( ( ( CP shr 18 ) and $07 ) or $F0, 2 )
+          + ' ' + InttoHex( ( ( CP shr 12 ) and $3F ) or $80, 2 )
+          + ' ' + InttoHex( ( ( CP shr 6 ) and $3F ) or $80, 2 )
+          + ' ' + InttoHex( ( CP and $3F ) or $80, 2 )
+  else
+			Utf8 :=  '';	//Cannot be encoded as Valid UTF-8
+  edtUtf8.Text := Utf8;
+end;
+{$ENDIF Pascal}
 end.

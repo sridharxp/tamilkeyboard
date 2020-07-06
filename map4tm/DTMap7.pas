@@ -77,9 +77,9 @@ UTkee: array [0..382] of ansistring =(
 'nfh',     'n''h',     'nrh',     'n"h',     'nlh',     'nzh',    'njh',     'neh',     'ngh',     'nkh',
 'nah',     'nuh',      'nyh',    'nth',     'nHh',     'nsh',     'nwh',     'ndh',     'nZh',     'n!h',
 'n]h',     'n$h',      'nBh',
-'bfs',     'b''s',     'brs',     'b"s',     'bls',     'bzs',    'bjs',     'bes',     'bgs',     'bks',
-'bas',     'bus',      'bys',    'bts',     'bHs',     'bss',     'bws',     'bds',     'bZs',     'b!s',
-'b]s',     'b$s',      'bBs',
+'bfS',     'b''S',     'brS',     'b"S',     'blS',     'bzS',    'bjS',     'beS',     'bgS',     'bkS',
+'baS',     'buS',      'byS',    'btS',     'bHS',     'bsS',     'bwS',     'bdS',     'bZS',     'b!S',
+'b]S',     'b$S',      'bBS',
 // U and UU
 'f[',     '''[',     'r[',     '"[',     'l[',     'z[',    'j[',     'e[',     'g[',     'k[',
 'a[',     'u[',      'y[',    't[',     'H[',     's[',     'w[',     'd[',     'Z[',     '![',

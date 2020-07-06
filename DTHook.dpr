@@ -23,15 +23,15 @@ When changing layouts hook is not released
 library DTHook;
 
 uses
-  FastMM4 in '..\..\DL\FastMM4991\FastMM4.pas',
-  FastMM4Messages in '..\..\DL\FastMM4991\FastMM4Messages.pas',
+  FastMM4 in '\DL\FastMM4_4992\FastMM4.pas',
+  FastMM4Messages in '\DL\FastMM4_4992\FastMM4Messages.pas',
   Windows,
   Dialogs,
   Messages,
   SysUtils,
   DTHookUtil,
-  DTMap1, DTMap2, DTMap3, DTMap4,
-  EZDSLHsh in '..\..\DL\ezdsl304\EZDSLHsh.PAS',
+  DTMap1, DTMap2, DTMap3, DTMap4, DTMap5,
+  EZDSLHsh in '\DL\ezdsl31\EZDSLHsh.PAS',
   bsearch in '\dl\Lib\BSearch.pas';
 
 {$R *.res}
@@ -58,6 +58,8 @@ begin
     ta:=ToAscii(p.vkCode,p.scanCode,keyboard_state,@wCharacter,0);
     if ta>0 then
       lpHookRec^.character_pressed:= wCharacter;
+    if (p.scanCode = $E) then
+      lpHookRec^.IsBS_scancode := true;
 
     DoKeyboard;
 
@@ -66,10 +68,10 @@ begin
     else
       lpHookRec^.shiftkey_pressed := false;
     if GetKeyState(VK_CAPITAL)<>0 then
-      lpHookRec^.caplock_pressed := true
+      lpHookRec^.capslock_pressed := true
     else
-    lpHookRec^.caplock_pressed:= false;
-    if (GetKeyState(VK_LMENU) and $80) = $80 then
+    lpHookRec^.capslock_pressed:= false;
+    if (GetKeyState(VK_MENU) and $80) = $80 then
       lpHookRec^.altkey_pressed := true
     else
       lpHookRec^.altkey_pressed := false;
@@ -77,14 +79,22 @@ begin
       lpHookRec^.controlkey_pressed := true
     else
       lpHookRec^.controlkey_pressed := false;
-    if (GetKeyState(VK_SPACE) and $80) = $80 then
-      lpHookRec^.spacebar_pressed:= true
-    else
-      lpHookRec^.spacebar_pressed:= false;
+//    if (GetKeyState(VK_SPACE) and $80) = $80 then
+//      lpHookRec^.spacebar_pressed:= true
+//    else
+//      lpHookRec^.spacebar_pressed:= false;
     if (GetKeyState(VK_BACK) and $80) = $80 then
       lpHookRec^.backspace_pressed := true
     else
       lpHookRec^.backspace_pressed := false;
+    if (GetKeyState(VK_NUMLOCK) and $80) = $80 then
+      lpHookRec^.NUMLOCK_pressed := true
+    else
+      lpHookRec^.NUMLOCK_pressed := false;
+    if (GetKeyState(VK_SCROLL) and $80) = $80 then
+      lpHookRec^.SCROLLLOCK_pressed := true
+    else
+      lpHookRec^.SCROLLLOCK_pressed := false;
   { Gives back control to system if Control or Alt key is pressed }
     if lpHookRec^.controlkey_pressed then
     begin
@@ -132,7 +142,7 @@ Virtual Key Code is not involved
       lpHookRec^.controlkey_pressed := true
     else
       lpHookRec^.controlkey_pressed := false;
-    if (GetKeyState(VK_LMENU) and $80)=$80 then
+    if (GetKeyState(VK_MENU) and $80)=$80 then
       lpHookRec^.altkey_pressed := true
     else
       lpHookRec^.altkey_pressed := false;
@@ -157,13 +167,15 @@ begin
       hInstance, 0);
     lpHookRec^.Current_vkCode := $0;
     lpHookRec^.Shiftkey_pressed := false;
-    lpHookRec^.Caplock_pressed := false;
+    lpHookRec^.Capslock_pressed := false;
     lpHookRec^.Altkey_pressed := false;
     lpHookRec^.Controlkey_pressed := false;
-    lpHookRec^.Spacebar_pressed := false;
+//    lpHookRec^.Spacebar_pressed := false;
     lpHookRec^.Backspace_pressed := false;
-    lpHookRec^.Previous_1_Character := 0;
-    lpHookRec^.Previous_2_Character := 0;
+    lpHookRec^.NUMLOCK_pressed := false;
+    lpHookRec^.SCROLLLOCK_pressed := false;
+//    lpHookRec^.Previous_1_Character := 0;
+//    lpHookRec^.Previous_2_Character := 0;
     lpHookRec^.Character_pressed := 0;
     lpHookRec^.Keychanged := False;
     lpHookRec^.Keyboard_Enabled := true;

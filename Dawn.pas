@@ -31,9 +31,7 @@ type
   TfrmDawn = class(TForm)
     Panel1: TPanel;
     Panel2: TPanel;
-    lblLayout: TLabel;
     HotKeyMgr: THotKeyManager;
-    Info: TLabel;
     MainMenu1: TMainMenu;
     Help1: TMenuItem;
     Author1: TMenuItem;
@@ -43,6 +41,9 @@ type
     ool1: TMenuItem;
     Debug1: TMenuItem;
     CodePoint1: TMenuItem;
+    lHelp: TLabel;
+    Specs1: TMenuItem;
+    Info: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure HotKeyMgrHotKeyPressed(HotKey: Cardinal; Index: Word);
@@ -180,8 +181,12 @@ begin
     end;
   end;
   UnLocked := False;
+{
   HotKeyMgr.AddHotKey(VK_F2);
   HotKeyMgr.AddHotKey(HotKeyManager.GetHotKey(MOD_ALT, VK_F2));
+}
+  HotKeyMgr.AddHotKey(VK_F1);
+  HotKeyMgr.AddHotKey(HotKeyManager.GetHotKey(MOD_ALT, VK_F1));
 end;
 
 procedure TfrmDawn.FormDestroy(Sender: TObject);
@@ -208,14 +213,18 @@ begin
         {Start the keyboard hook}
         if cmbFont.ItemIndex = -1 then
         begin
-          cmbFont.ItemIndex := 1;
+          cmbFont.ItemIndex := 2;
           cmbFont.Refresh;
         end;
         if cmbKbd.ItemIndex = -1 then
         begin
-          cmbKbd.ItemIndex := 1;
+          cmbKbd.ItemIndex := 0;
           cmbKbd.Refresh;
         end;
+        if (cmbkbd.ItemIndex = 1) and (cmbFont.ItemIndex = 3) then
+          cmbkbd.ItemIndex := 0;
+        if (cmbkbd.ItemIndex = 2) and (cmbFont.ItemIndex <> 2) then
+          cmbkbd.ItemIndex := 0;
 //        SelectKeyBoard(Self.WindowHandle, pchar(
 //          cmbFont.Items[cmbFont.ItemIndex] + ' ' + cmbKbd.Items[cmbKbd.ItemIndex]));
         SelectKeyBoard(pchar(cmbFont.Items[cmbFont.ItemIndex] + ' ' +
@@ -242,7 +251,10 @@ end;
 procedure TfrmDawn.HotKeyMgrHotKeyPressed(HotKey: Cardinal;
   Index: Word);
 begin
+{
   if Hotkey = VK_F2 then
+}
+  if Hotkey = (VK_F1) then
     begin
 {      UnLock;}
 //      Enable;
@@ -250,7 +262,10 @@ begin
       Info.Caption := lpHookRec^.KeyboardName;
     end;
 
+{
   if Hotkey = HotKeyManager.GetHotKey(MOD_ALT, VK_F2) then
+}
+  if Hotkey = HotKeyManager.GetHotKey(MOD_ALT, VK_F1) then
   begin
     SuspendKeyboardHook;
 //    if not lpHookRec^.Keyboard_Enabled then
@@ -267,7 +282,9 @@ end;
 
 procedure dropname;
 begin
-  ShowMessage('Sridharan S, aurosridhar@gmail.com');
+//MessageDlg('Sridharan S' + #10 + '+91 98656 82910' + #10 +'excel2tallyerp@gmail.com',
+  MessageDlg('Sridharan S' + #10 + '+91 98656 82910' + #10 +'aurosridhar@gmail.com',
+    mtInformation, [mbOK], 0);
 end;
 
 procedure TfrmDawn.Author1Click(Sender: TObject);
@@ -277,7 +294,10 @@ end;
 
 procedure TfrmDawn.HotKeys1Click(Sender: TObject);
 begin
-  MessageDlg('F2 for Activation; AltF2 to DeActivate', mtInformation, [mbOK], 0);
+{
+  MessageDlg('Press F2 to Activate; AltF2 to DeActivate', mtInformation, [mbOK], 0);
+}
+  MessageDlg('Press F1 to Activate; Alt+F1 to DeActivate', mtInformation, [mbOK], 0);
 end;
 
 procedure TfrmDawn.Debug1Click(Sender: TObject);
