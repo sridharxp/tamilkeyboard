@@ -1,4 +1,4 @@
-(* 
+(*
 Copyright (C) 2014, Sridharan S
 
 This file is part of Tamil Keyboard.
@@ -22,6 +22,7 @@ Unicode Codepoint Calculator
 unit CodePoint;
 
 {$DEFINE Pascal}
+
 interface
 
 uses
@@ -63,7 +64,9 @@ type
     { Public declarations }
   end;
 
+{
 function Int2Hex(const Dec: integer): string;
+}
 
 var
   frmCPCalc: TfrmCPCalc;
@@ -83,7 +86,7 @@ begin
   i := StrtoInt('$' + edtFirst.Text);
   J := StrtoInt('$' + edtSecond.Text);
 
-  edtCodePoint.Text := InttoHex($10000+((i-$D800)*$400)+(j-$DC00), 10);
+  edtCodePoint.Text := Int2Hex($10000+((i-$D800)*$400)+(j-$DC00));
 end;
 
 //H = Math.floor((S - 0x10000) / 0x400) + 0xD800;
@@ -93,14 +96,21 @@ var
   cp: integer;
 begin
   cp := StrtoInt('$'+ edtCodePoint.Text);
-  edtFirst.Text := InttoHex(Trunc((CP - $10000) / $400) + $D800, 4);
+  if (Cp > $10FFFF) or ((Cp >= $D800) and (Cp <= $DFFF)) then
+    Exit;
+  edtFirst.Text := InttoHex(((CP - $10000) div $400) + $D800, 4);
   edtSecond.Text := InttoHex(((CP - $10000) mod $400) + $DC00, 4);
 end;
 
 procedure TfrmCPCalc.btnUtf2CpClick(Sender: TObject);
-var
-  CodePoint: integer;
 begin
+  if Pos('Chr(', edtUTF8.Text) > 0 then
+  begin
+    edtUTF8.Text := '';
+    Exit;
+  end;
+  edtCP.Text := utf82cp(edtUTF8.Text);
+{
   codePoint := 0;
   if ((Ord(edtUtf8.Text[1]) and $80) = 0) then
     CodePoint := Ord(edtUtf8.Text[1])
@@ -121,8 +131,9 @@ begin
          + ( ord( edtUtf8.Text[3] ) and $3F );
 //  edtCP.Text := InttoHex(CodePoint,4);
   edtCP.Text := Int2Hex(CodePoint);
+}
 end;
-
+{
 function Int2Hex(const Dec: integer): string;
 var
   HexStr : string;
@@ -155,7 +166,7 @@ begin
   end;
   Result := HexStr;
 end;
-
+}
 procedure TfrmCPCalc.btnBbtnCp2UtfClick(Sender: TObject);
 var
   CP: integer;
@@ -163,8 +174,9 @@ var
   Utf8: string;
 begin
   cp := StrtoInt('$' + edtCp.Text);
-
-  bits	:= log2(cp) + 1 ;
+  utf8 := cp2utf8(cp);
+{
+  bits	:= log2(cp + 1) ;
 
   if( bits <= 7 )	then			//Single Byte
 			Utf8 := Chr(CP)
@@ -182,6 +194,7 @@ begin
           + Chr( ( CP and $3F ) or $80 )
   else
 			Utf8 :=  '';	//Cannot be encoded as Valid UTF-8
+}
   edtUtf8.Text := Utf8;
 end;
 
@@ -191,9 +204,23 @@ var
   CP: integer;
   bits: Extended;
   Utf8: string;
+  Utf8Hex: string;
+  i: integer;
+  Ch: char;
 begin
   cp := StrtoInt('$' + edtCp.Text);
-  bits	:= log2(cp) + 1 ;
+  utf8 := cp2utf8(cp);
+  for i := 1 to Length(Utf8) do
+  begin
+    if i > 1 then
+      Utf8Hex := Utf8Hex + '+';
+    Ch := Char(Utf8[i]);
+    Utf8Hex := Utf8Hex + 'Chr($' + Int2Hex(Ord(Ch)) + ')';
+   end;
+{
+//  bits	:= log2(cp) + 1 ;
+  bits	:= log2(cp + 1) ;
+
   if( bits <= 7 )	then			//Single Byte
 			Utf8 := 'Chr($' + InttoHex(CP,2) + ')'
   else if( bits <= 11 )	then		//Two Bytes
@@ -211,6 +238,8 @@ begin
   else
 			Utf8 :=  '';	//Cannot be encoded as Valid UTF-8
   edtUtf8.Text := Utf8;
+}
+  edtUtf8.Text := Utf8Hex;
 end;
 {$ELSE}
 procedure TfrmCPCalc.btnBbtnCp2UtfHexClick(Sender: TObject);
@@ -220,7 +249,10 @@ var
   Utf8: string;
 begin
   cp := StrtoInt('$' + edtCp.Text);
-  bits	:= log2(cp) + 1 ;
+
+//  bits	:= log2(cp) + 1 ;
+  bits	:= log2(cp + 1) ;
+
   if( bits <= 7 )	then			//Single Byte
 			Utf8 := InttoHex(CP,2)
   else if( bits <= 11 )	then		//Two Bytes

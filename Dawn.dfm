@@ -101,10 +101,10 @@ object frmDawn: TfrmDawn
         OnClick = HotKeys1Click
       end
       object Specs1: TMenuItem
-        Caption = 'Specs'
+        Caption = 'Reference Fonts'
       end
       object Author1: TMenuItem
-        Caption = 'Author'
+        Caption = 'Developer'
         OnClick = Author1Click
       end
     end

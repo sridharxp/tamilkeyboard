@@ -94,7 +94,7 @@ type
 
 Const
   BufLen = 5;
-  UndoLen = 12;
+  UndoLen = 1024;
   valid_keys: array [1..63] of integer = (
 { Backspace, enter keys }
    $08, $0D,
@@ -129,13 +129,14 @@ visiblekeys: array [1..47] of integer = (
   $52, $53, $54, $55, $56, $57, $58, $59, $5A,
   $BA, $BB, $BC, $BD, $BE, $BF, $C0, $DB, $DC, $DD, $DE);
 
-var
+threadvar
   hObjHandle: THandle; {Variable for the file mapping object}
   lpHookRec: PHookRec; {Pointer to our hook record}
   keyboardmap: THashTable;
-  BufStr: array [1..BufLen] of AnsiChar = '     ';
-  prev_ucchar_length: integer = 0;
-  SCIMUndo: array [1..UndoLen]of Integer;
+//  BufStr: array [1..BufLen] of AnsiChar = '     ';
+  BufStr: array [1..BufLen] of AnsiChar;
+  prev_ucchar_length: integer;
+  SCIMUndo: array [1..UndoLen]of byte;
 
   procedure GetKbdMap;
   procedure LoadKbdMap(const Kee: array of Ansistring; fee: array of integer);
@@ -327,8 +328,9 @@ begin
         Genkey(8, False);
     end;
   end;
+
   if not BinarySearch(Valid_Keys, lpHookRec^.current_vkCode, 63) then
-    exit;
+    Exit;
   if  Cancelled > 1 then
   if  lpHookRec^.current_vkCode = $08 then
     Exit;
@@ -344,11 +346,11 @@ begin
     SCIMUndo[UndoLen] := 1;
 
   for Count := BufLen downto 1 do
-    if ApplySCIM(Count) then
-    begin
-      Result := True;
-      break;
-    end;
+  if ApplySCIM(Count) then
+  begin
+    Result := True;
+    break;
+  end;
 end;
 
 function ApplySCIM(const KeyLen: integer): boolean;

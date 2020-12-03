@@ -49,6 +49,8 @@ type
     edt24: TEdit;
     edt34: TEdit;
     cmbKee: TComboBox;
+    lbl1: TLabel;
+    lbl2: TLabel;
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
